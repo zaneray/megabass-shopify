@@ -1,0 +1,2 @@
+# megabass-shopify
+megabass theme
