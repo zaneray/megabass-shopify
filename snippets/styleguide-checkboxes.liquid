@@ -1,0 +1,66 @@
+{%- comment -%}
+  Renders a group of checkbox examples for style guide.
+  
+  @param {number} index - Optional index for unique IDs. Falls back to forloop.index if in a loop, or 1 if not provided.
+{%- endcomment -%}
+
+{%- liquid
+  assign checkbox_index = index | default: forloop.index | default: 1
+  
+  assign checkbox_name_1 = 'styleguide-checkbox-' | append: checkbox_index | append: '-1' | append: '-' | append: block.id
+  assign checkbox_id_1 = 'styleguide-checkbox-' | append: checkbox_index | append: '-1' | append: '-' | append: block.id
+  
+  assign checkbox_name_2 = 'styleguide-checkbox-' | append: checkbox_index | append: '-2' | append: '-' | append: block.id
+  assign checkbox_id_2 = 'styleguide-checkbox-' | append: checkbox_index | append: '-2' | append: '-' | append: block.id
+  
+  assign checkbox_name_3 = 'styleguide-checkbox-' | append: checkbox_index | append: '-3' | append: '-' | append: block.id
+  assign checkbox_id_3 = 'styleguide-checkbox-' | append: checkbox_index | append: '-3' | append: '-' | append: block.id
+  
+  assign form_id = 'styleGuideForm-' | append: checkbox_index | append: '-' | append: block.id
+-%}
+
+<div class="checkboxes">
+	<form id="{{ form_id }}" accept-charset="UTF-8" style="max-width: 50rem">
+	{% render 'checkbox',
+		name: checkbox_name_1,
+		value: 'Checkbox',
+		label: 'Checkbox Default',
+		checked: false,
+		id: checkbox_id_1,
+		disabled: false,
+		events: ''
+	%}
+
+	{% render 'checkbox',
+		name: checkbox_name_2,
+		value: 'Checkbox',
+		label: 'Checkbox Checked',
+		checked: true,
+		id: checkbox_id_2,
+		disabled: false,
+		events: ''
+	%}
+
+	{% render 'checkbox',
+		name: checkbox_name_3,
+		value: 'Checkbox',
+		label: 'Checkbox Disabled',
+		checked: false,
+		id: checkbox_id_3,
+		disabled: true,
+		events: ''
+	%}
+	</form>	
+</div>
+
+{% stylesheet %}
+	.checkboxes form {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--text-spacing-md);
+
+		@media screen and (max-width: 749px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+	}
+{% endstylesheet %}

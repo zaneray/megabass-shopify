@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="icon unlock">
+  <path d="M12.3598 16.44C13.1993 16.44 13.8798 15.7595 13.8798 14.92C13.8798 14.0805 13.1993 13.4 12.3598 13.4C11.5204 13.4 10.8398 14.0805 10.8398 14.92C10.8398 15.7595 11.5204 16.44 12.3598 16.44Z" fill="currentColor" />
+  <path d="M8.56006 8.84V5.8C8.56006 4.79218 8.96041 3.82563 9.67305 3.11299C10.3857 2.40036 11.3522 2 12.3601 2C13.5942 2 14.7252 2.58835 15.4419 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+  <rect x="4" y="8.84" width="16.72" height="12.16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+</svg>

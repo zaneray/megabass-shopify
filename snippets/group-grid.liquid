@@ -1,0 +1,84 @@
+{%- doc -%}
+  Renders block content in a CSS Grid layout (grid version of group).
+
+  @param {string} children - The DOM content of the group block.
+  @param {object} settings - The settings of the group block.
+  @param {string} shopify_attributes - String with Shopify attributes for the editor.
+  @param {string} [class] - Custom classes for the group block.
+  @param {string} [style] - Custom inline styles for the group block.
+
+  @example
+  {% render 'group-grid', children: children, settings: block.settings, shopify_attributes: block.shopify_attributes %}
+{%- enddoc -%}
+
+<div
+  class="
+    group-block
+    group-block--grid
+    group-block--height-{{ settings.height }}
+    group-block--width-{{ settings.width }}
+    border-style
+    spacing-style
+    size-style
+    {% if settings.inherit_color_scheme == false %} color-{{ settings.color_scheme }}{% endif %}
+    {{ class }}
+  "
+  style="
+    {% render 'border-override', settings: settings %}
+    {% render 'spacing-style', settings: settings %}
+    {% render 'size-style', settings: settings %}
+    {{ style }}
+  "
+  {{ shopify_attributes }}
+  data-testid="group-grid-block"
+>
+  {%- if settings.link != blank -%}
+    <a
+      href="{{ settings.link }}"
+      class="group-block__link"
+      {% if settings.open_in_new_tab %}
+        target="_blank" rel="noopener"
+      {% endif %}
+    ></a>
+  {%- endif -%}
+
+  <div class="group-block__media-wrapper">
+    {% render 'background-media',
+      background_media: settings.background_media,
+      background_video: settings.video,
+      background_video_position: settings.video_position,
+      background_image: settings.background_image,
+      background_image_position: settings.background_image_position,
+      placeholder: settings.placeholder
+    %}
+    {% if settings.toggle_overlay %}
+      {% render 'overlay', settings: settings, layer: '0' %}
+    {% endif %}
+  </div>
+
+  {% liquid
+    assign tablet_columns = settings.grid_template_columns_tablet | default: 'inherit'
+    assign mobile_columns = settings.grid_template_columns_mobile | default: 'inherit'
+    assign has_tablet_grid = false
+    assign has_mobile_grid = false
+    if tablet_columns != 'inherit'
+      assign has_tablet_grid = true
+    endif
+    if mobile_columns != 'inherit'
+      assign has_mobile_grid = true
+    endif
+  %}
+  <div
+    class="
+      group-block-content
+      gap-style
+      layout-panel-grid
+      {% if has_tablet_grid %}layout-panel-grid--has-tablet-overrides{% endif %}
+      {% if has_mobile_grid %}layout-panel-grid--has-mobile-overrides{% endif %}
+      {% if request.design_mode %}group-block-content--design-mode{% endif %}
+    "
+    style="{% render 'layout-panel-grid-style', settings: settings %}"
+  >
+    {{- children -}}
+  </div>
+</div>

@@ -1,0 +1,491 @@
+{% style %}
+  {%- comment -%}
+    Figma Design System Overrides and Extensions
+    
+    This file contains only overrides of theme-styles-variables.liquid and new
+    declarations from the Figma design system. Duplicate declarations have been
+    removed to avoid redundancy.
+  {%- endcomment -%}
+
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+  :root {
+    /* New: Figma color system (from prim-color-* in figma-variables.css) */
+    --color-black: #000000;
+    --color-error-100: #ffefe5;
+    --color-error-200: #ff8e4c;
+    --color-error-300: #ff5d00;
+    --color-error-400: #b24100;
+    --color-neutral-100: #f2f3f3;
+    --color-neutral-200: #d2d2d2;
+    --color-neutral-300: #b1b3b3;
+    --color-neutral-400: #868b8b;
+    --color-neutral-500: #6a7070;
+    --color-neutral-600: #4e5656;
+    --color-neutral-700: #353b3b;
+    --color-neutral-800: #1d2020;
+    --color-neutral-900: #000000;
+    --color-primary-100: #f2f3f3;
+    --color-primary-200: #868b8b;
+    --color-primary-300: #4e5656;
+    --color-primary-400: #353b3b;
+    --color-primary-500: #1d2020;
+    --color-primary-600: #000000;
+    /* Align with README scale; Figma primitives top out at 600 */
+    --color-primary-700: #000000;
+
+    /* New: accent primitives (Figma prim-color-accent-*) */
+    --color-accent-300: #8b6f9e;
+    --color-accent-400: #6b4683;
+    --color-accent-500: #3c1053;
+    --color-accent-600: #290b39;
+    --color-secondary-100: #f0f4f9;
+    --color-secondary-200: #c2d8eb;
+    --color-secondary-300: #2c6594;
+    --color-secondary-400: #f4444a;
+    --color-secondary-500: #de1219;
+    --color-secondary-600: #a60000;
+    --color-secondary-700: #2e2c1f;
+    --color-secondary: #de1219;
+    --color-success-100: #d6f3e2;
+    --color-success-200: #0b9061;
+    --color-success-300: #008556;
+    --color-success-400: #086343;
+    --color-white: #ffffff;
+    --opacity-dark: #000000b3;
+    --opacity-light: #0000004d;
+    --opacity-transparent: #00000000;
+
+    /* New: Figma color system (RGB) – space-separated for rgb(var(--x-rgb) / α) */
+    --color-black-rgb: 0 0 0;
+    --color-error-100-rgb: 255 239 229;
+    --color-error-200-rgb: 255 142 76;
+    --color-error-300-rgb: 255 93 0;
+    --color-error-400-rgb: 178 65 0;
+    --color-neutral-100-rgb: 242 243 243;
+    --color-neutral-200-rgb: 210 210 210;
+    --color-neutral-300-rgb: 177 179 179;
+    --color-neutral-400-rgb: 134 139 139;
+    --color-neutral-500-rgb: 106 112 112;
+    --color-neutral-600-rgb: 78 86 86;
+    --color-neutral-700-rgb: 53 59 59;
+    --color-neutral-800-rgb: 29 32 32;
+    --color-neutral-900-rgb: 0 0 0;
+    --color-primary-100-rgb: 242 243 243;
+    --color-primary-200-rgb: 134 139 139;
+    --color-primary-300-rgb: 78 86 86;
+    --color-primary-400-rgb: 53 59 59;
+    --color-primary-500-rgb: 29 32 32;
+    --color-primary-600-rgb: 0 0 0;
+    --color-primary-700-rgb: 0 0 0;
+    --color-accent-300-rgb: 139 111 158;
+    --color-accent-400-rgb: 107 70 131;
+    --color-accent-500-rgb: 60 16 83;
+    --color-accent-600-rgb: 41 11 57;
+    --color-secondary-100-rgb: 240 244 249;
+    --color-secondary-200-rgb: 194 216 235;
+    --color-secondary-300-rgb: 44 101 148;
+    --color-secondary-400-rgb: 244 68 74;
+    --color-secondary-500-rgb: 222 18 25;
+    --color-secondary-600-rgb: 166 0 0;
+    --color-secondary-700-rgb: 46 44 31;
+    --color-secondary-rgb: 222 18 25;
+    --color-success-100-rgb: 214 243 226;
+    --color-success-200-rgb: 11 144 97;
+    --color-success-300-rgb: 0 133 86;
+    --color-success-400-rgb: 8 99 67;
+    --color-white-rgb: 255 255 255;
+    --opacity-dark-rgb: 0 0 0;
+    --opacity-light-rgb: 0 0 0;
+    --opacity-transparent-rgb: 0 0 0;
+
+	  /* Override: Base font size */
+    --font-size-base: 1rem;
+    
+    /* Override: Paragraph size */
+    --font-paragraph--size: 0.75rem;
+
+    /* Override: Layout measurements */
+    --masthead-height: 4rem;
+    --announcement-bar-height: 38px;
+
+    /* Override: Text decoration - if using a Figma color, use rgb(var(--color-x-rgb))*/
+    --text-decoration-color: rgb(var(--color-primary-400-rgb));
+    --text-decoration-hover: rgb(var(--color-primary-300-rgb));  
+    --rte-bullet-color: var(--color-primary);
+    --numbered-list-border-color: transparent;
+
+    /* Override: Badge colors */
+    --badge-background-color: var(--button-background-primary);
+    --badge-text-color: var(--button-text-primary);
+    --badge-border-color: var(--button-border-primary);
+
+    /* Override: Slider button styles */
+    --slider-button-background: var(--button-background-secondary);
+    --slider-button-background-hover: var(--button-background-secondary-hover);
+    --slider-icon-color: var(--color-white);
+    --slider-icon-color-hover: var(--color-white);
+
+    /* Override: Card gradients */
+    --card-gradient: linear-gradient(180deg, rgb(0 0 0 / 0%) 56.27%, rgb(0 0 0 / 40%) 135.56%), linear-gradient(0deg, rgb(0 0 0 / 10%) 0%, rgb(0 0 0 / 10%) 100%);
+    --portrait-card-gradient: linear-gradient(180deg, rgb(0 0 0 / 0%) 46.67%, rgb(0 0 0 / 45%) 113.79%);
+    --blog-card-gradient: linear-gradient(180deg, rgb(0 0 0 / 0%) 46.67%, rgb(0 0 0 / 45%) 113.79%);
+
+    /* Override: Icon widths */
+    --icon-width: 1.5rem;
+    --input-icon-width: 1.25rem;
+    --input-icon-width-sm: 1rem;
+
+    /* Override: Input dimensions */
+    --input-border-width: 0.1rem;
+    --input-default-width: 15rem;
+    --textarea-default-width: 25rem;
+    --textarea-default-height: 12.5rem;
+
+    /* Override: Radio button dimensions */
+    --radio-outer-width: 1.25rem;
+    --radio-inner-width: 0.75rem;
+    --radio-inner-hover-opacity: 0.2;
+
+    /* Override: Viewport and constrained heights */
+    --viewport-offset: 400px;
+    --constrained-min-height: 300px;
+    --constrained-height: max(var(--constrained-min-height), calc(100vh - var(--viewport-offset)));
+
+    /* Override: Max-width / Measure */
+    --max-width--body-normal: 50ch;
+    --max-width--body-narrow: 35ch;
+    --max-width--heading-normal: 50ch;
+    --max-width--heading-narrow: 30ch;
+    --max-width--display-normal: 20ch;
+    --max-width--display-narrow: 15ch;
+    --max-width--display-tight: 5ch;
+
+    /* New: Font weights */
+    --font-weight-extra-bold: 900;
+    --font-weight-bold: 700;
+    --font-weight-semibold: 600;
+    --font-weight-regular: 500;
+    --font-weight-550: 550;
+    --font-weight-base: 400;
+    --font-weight-light: 200;
+    --font-weight-heading: var(--font-weight-bold);
+
+    /* New: Additional letter spacing */
+    --letter-spacing-eyebrow: 0.08em;
+    --letter-spacing-action: 0;
+    --letter-spacing-paragraph: 0.01em;
+
+    /* New: Additional line heights */
+    --line-height-small: 1.125em;
+    --line-height-base: 1.5em;
+    --line-height-heading: 1.2em;
+    --line-height-input: 1.25em;
+
+    /* Override: Font families - Figma design tokens */
+    --font-family-body: "Lora", sans-serif;
+    --font-family-eyebrow: "Montserrat", sans-serif;
+    --font-family-heading: "Montserrat", sans-serif;
+
+    --font-body--family: var(--font-family-body);
+    --font-body--style: normal;
+    --font-body--weight: var(--font-weight-base);
+    --font-subheading--family: var(--font-family-eyebrow);
+    --font-subheading--style: normal;
+    --font-subheading--weight: var(--font-weight-base);
+    --font-heading--family: var(--font-family-heading);
+    --font-heading--style: normal;
+    --font-heading--weight: var(--font-weight-bold);
+    --font-accent--family: var(--font-family-heading);
+    --font-accent--style: normal;
+    --font-accent--weight: var(--font-weight-base);
+
+    /* Override: Hardcoded font sizes - missing --3xs from theme-styles */
+    --font-size--2xs: 0.625rem;
+    --font-size--xs: 0.8125rem;
+    --font-size--sm: 0.875rem;
+    --font-size--md: 1rem;
+    --font-size--lg: 1.125rem;
+    --font-size--xl: 1.25rem;
+    --font-size--2xl: 1.5rem;
+    --font-size--3xl: 2rem;
+    --font-size--4xl: 2.5rem;
+    --font-size--5xl: 3rem;
+    --font-size--6xl: 3.5rem;
+
+    /* Override: Gradient */
+    --gradient-image-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 50%, #000 100%);
+
+    /* Override: Checkout buttons gap */
+    --checkout-button-gap: 8px;
+
+    /* New: Box shadows */
+    --box-shadow-small: 0 2px 8px 0 rgba(32, 37, 50, 0.08), 0 2px 4px 0 rgba(32, 37, 50, 0.03);
+    --box-shadow-medium: 0 4px 16px 0 rgba(32, 37, 50, 0.12), 0 2px 8px 0 rgba(32, 37, 50, 0.08);
+    --box-shadow-large: 0 8px 32px 0 rgba(32, 37, 50, 0.16), 0 4px 16px 0 rgba(32, 37, 50, 0.12);
+
+    /* New: Transitions */
+    --transition-base: 0.25s ease-out;
+
+    /* Override: Drawer width */
+    --drawer-width: 100vw;
+
+    /* Override: Badge rectangle padding - desktop */
+    @media screen and (min-width: 750px) {
+      --badge-rectangle-padding-block: 0.125rem;
+      --badge-rectangle-padding-inline: 0.25rem;
+    }
+
+    /* New: Icon size base */
+    --icon-size-base: 1rem;
+
+    /* New: Additional gap size */
+    --gap-1xl: 1.5rem;
+
+    /* New: Figma Design System Variables - Mobile (screen-sm) */
+    --card-padding-lg: 1rem;
+    --card-padding-sm: 1rem;
+    --container-padding: 1rem;
+    --grid-horizontal-spacing-lg: 2rem;
+    --grid-horizontal-spacing-md: 1rem;
+    --grid-horizontal-spacing-sm: 0.5rem;
+    --grid-vertical-spacing-lg: 2rem;
+    --grid-vertical-spacing-md: 1rem;
+    --grid-vertical-spacing-sm: 0.5rem;
+    --stacked-component-lg: 3.5rem;
+    --stacked-component-md: 3rem;
+    --stacked-component-sm: 2rem;
+    --text-spacing-lg: 1.5rem;
+    --text-spacing-md: 1rem;
+    --text-spacing-sm: 0.75rem;
+    --text-spacing-xl: 2rem;
+    --text-spacing-xs: 0.625rem;
+    --text-alert-action: var(--text-paragraph-small, 0.75rem);
+    --text-alert-heading: var(--text-paragraph-small, 0.75rem);
+    --text-alert-text: var(--text-paragraph-small, 0.75rem);
+    --text-button-large: 0.875rem;
+    --text-button-medium: 0.75rem;
+    --text-button-small: 0.625rem;
+    --text-eyebrow-x-large: 0.875rem;
+    --text-eyebrow-large: 0.75rem;
+    --text-eyebrow-small: 0.625rem;
+    --text-heading-1: 2.5rem;
+    --text-heading-2: 2rem;
+    --text-heading-3: 1.5rem;
+    --text-heading-4: 1.25rem;
+    --text-heading-5: 1rem;
+    --text-heading-6: 0.875rem;
+    --text-heading-responsive: 2.5rem;
+    --text-input-checkbox-label: 0.875rem;
+    --text-input-label: 0.875rem;
+    --text-input-value: 1rem;
+    --text-paragraph-large: 1.125rem;
+    --text-paragraph-medium: 0.875rem;
+    --text-paragraph-small: 0.75rem;
+    --text-paragraph-x-small: 0.625rem;
+    --text-product-card-description: 0.75rem;
+    --text-product-card-price: 0.75rem;
+    --text-product-card-title: 0.875rem;
+    --text-tag: 0.875rem;
+    --text-tooltip: 0.75rem;
+    --alert-gap: 1rem;
+    --alert-padding-horizontal: 1rem;
+    --alert-padding-vertical: 1rem;
+    --badge-gap: 0.5rem;
+    --badge-padding-horizontal: 0.75rem;
+    --badge-padding-vertical: 0.375rem;
+    --border-weight: 0.0625rem;
+    --button-border-weight: var(--border-weight, 0.0625rem);
+    --button-gap-lg: 0.625rem;
+    --button-gap-md: 0.5rem;
+    --button-gap-sm: 0.375rem;
+    --button-padding-horizontal-lg: 1.5rem;
+    --button-padding-horizontal-md: 1.25rem;
+    --button-padding-horizontal-sm: 0.75rem;
+    --button-padding-vertical-lg: 0.875rem;
+    --button-padding-vertical-md: 0.75rem;
+    --button-padding-vertical-sm: 0.625rem;
+    --container-width-lg: 90rem;
+    --container-width-md: 80rem;
+    --container-width-sm: 42.5rem;
+    --container-width-xl: 105rem;
+    --container-width-xs: 26.25rem;
+    --input-border-weight: var(--border-weight, 0.0625rem);
+    --input-focus-spread: 0.1875rem;
+    --input-gap-md: 0.625rem;
+    --input-gap-sm: 0.375rem;
+    --input-padding-horizontal-md: 1rem;
+    --input-padding-horizontal-sm: 0.625rem;
+    --input-padding-vertical-md: 0.875rem;
+    --input-padding-vertical-sm: 0.4375rem;
+    --radius-lg: 6.25rem;
+    --radius-md: 0.25rem;
+    --radius-sm: 0.125rem;
+    --tooltip-padding-horizontal: 0.5rem;
+    --tooltip-padding-vertical: 0.375rem;
+
+    /* New: Figma Screen Medium Variables */
+    --footer-gap: 1.5rem;
+  }
+
+  /* Figma Screen Medium - Responsive overrides (screen-md = tablet) */
+  @media screen and (min-width: 750px) {
+    :root {
+      --height-small: 17.5rem;
+      --height-medium: 21.25rem;
+      --height-large: 25rem;
+      --card-padding-lg: 1.5rem;
+      --card-padding-sm: 1rem;
+      --container-padding: 2rem;
+      --grid-horizontal-spacing-lg: 3rem;
+      --grid-horizontal-spacing-md: 1.5rem;
+      --grid-horizontal-spacing-sm: 1rem;
+      --grid-vertical-spacing-lg: 3rem;
+      --grid-vertical-spacing-md: 1.5rem;
+      --grid-vertical-spacing-sm: 1rem;
+      --stacked-component-lg: 5rem;
+      --stacked-component-md: 4rem;
+      --stacked-component-sm: 3rem;
+      --text-spacing-lg: 1.5rem;
+      --text-spacing-md: 1rem;
+      --text-spacing-sm: 0.75rem;
+      --text-spacing-xl: 2.5rem;
+      --text-spacing-xs: 0.75rem;
+      --text-alert-action: var(--text-paragraph-small, 0.875rem);
+      --text-alert-heading: var(--text-paragraph-small, 0.875rem);
+      --text-alert-text: var(--text-paragraph-small, 0.875rem);
+      --text-button-large: 0.875rem;
+      --text-button-medium: 0.75rem;
+      --text-button-small: 0.625rem;
+      --text-eyebrow-x-large: 1rem;
+      --text-eyebrow-large: 0.875rem;
+      --text-eyebrow-small: 0.75rem;
+      --text-heading-1: 3rem;
+      --text-heading-2: 2.5rem;
+      --text-heading-3: 1.75rem;
+      --text-heading-4: 1.5rem;
+      --text-heading-5: 1.125rem;
+      --text-heading-6: 1rem;
+      --text-heading-responsive: 3.5rem;
+      --text-input-checkbox-label: 0.875rem;
+      --text-input-label: 0.875rem;
+      --text-input-value: 1rem;
+      --text-paragraph-large: 1.125rem;
+      --text-paragraph-medium: 1rem;
+      --text-paragraph-small: 0.875rem;
+      --text-paragraph-x-small: 0.75rem;
+      --text-product-card-description: 0.875rem;
+      --text-product-card-price: 0.875rem;
+      --text-product-card-title: 1rem;
+      --text-tag: 0.875rem;
+      --text-tooltip: 0.75rem;
+      --footer-gap: 4rem;
+    }
+  }
+
+  /* Figma Screen Large - Responsive overrides (screen-lg = desktop) */
+  @media screen and (min-width: 1400px) {
+    :root {
+      --card-padding-lg: 2rem;
+      --card-padding-sm: 1.5rem;
+      --container-padding: 5.25rem;
+      --grid-horizontal-spacing-lg: 4rem;
+      --grid-horizontal-spacing-md: 1.5rem;
+      --grid-horizontal-spacing-sm: 1rem;
+      --grid-vertical-spacing-lg: 4rem;
+      --grid-vertical-spacing-md: 1.5rem;
+      --grid-vertical-spacing-sm: 1rem;
+      --stacked-component-lg: 7rem;
+      --stacked-component-md: 6rem;
+      --stacked-component-sm: 4rem;
+      --text-spacing-lg: 2rem;
+      --text-spacing-md: 1.5rem;
+      --text-spacing-sm: 1rem;
+      --text-spacing-xl: 3rem;
+      --text-spacing-xs: 0.75rem;
+      --text-alert-action: var(--text-paragraph-small, 0.875rem);
+      --text-alert-heading: var(--text-paragraph-small, 0.875rem);
+      --text-alert-text: var(--text-paragraph-small, 0.875rem);
+      --text-button-large: 0.875rem;
+      --text-button-medium: 0.75rem;
+      --text-button-small: 0.625rem;
+      --text-eyebrow-x-large: 1.25rem;
+      --text-eyebrow-large: 1rem;
+      --text-eyebrow-small: 0.875rem;
+      --text-heading-1: 3.5rem;
+      --text-heading-2: 3rem;
+      --text-heading-3: 2rem;
+      --text-heading-4: 1.5rem;
+      --text-heading-5: 1.125rem;
+      --text-heading-6: 1rem;
+      --text-heading-responsive: 4.5rem;
+      --text-input-checkbox-label: 0.875rem;
+      --text-input-label: 0.875rem;
+      --text-input-value: 1rem;
+      --text-paragraph-large: 1.25rem;
+      --text-paragraph-medium: 1rem;
+      --text-paragraph-small: 0.875rem;
+      --text-paragraph-x-small: 0.75rem;
+      --text-product-card-description: 0.875rem;
+      --text-product-card-price: 0.875rem;
+      --text-product-card-title: 1rem;
+      --text-tag: 0.875rem;
+      --text-tooltip: 0.75rem;
+      --footer-gap: 5.25rem;
+    }
+  }
+
+  /* Override: Horizon Variables - maps Figma variables to theme variables */
+  :root {
+    /* General border radius variables */
+    --border-radius: var(--radius-md);
+    
+		/* Overries for h5 & h6 per Figma design system */
+		--font-h5--family: var(--font-family-heading);
+		--font-h6--family: var(--font-family-heading);
+		--font-h5--weight: var(--font-weight-bold);
+		--font-h6--weight: var(--font-weight-bold);
+
+		/* Horizon mapped heading font sizes to Figma */
+    --font-h1--size: var(--text-heading-1);
+    --font-h2--size: var(--text-heading-2);
+    --font-h3--size: var(--text-heading-3);
+    --font-h4--size: var(--text-heading-4);
+    --font-h5--size: var(--text-heading-5);
+    --font-h6--size: var(--text-heading-6);
+
+		/* Heading letter spacing to Figma | Keeping for reference */
+		--font-h1--letter-spacing: var(--letter-spacing-action);
+		--font-h2--letter-spacing: var(--letter-spacing-action);
+		--font-h3--letter-spacing: var(--letter-spacing-action);
+		--font-h4--letter-spacing: var(--letter-spacing-action);
+		--font-h5--letter-spacing: var(--letter-spacing-action);
+		--font-h6--letter-spacing: var(--letter-spacing-action);
+
+		/* Figma button padding and border radius mapped to Horizon */
+		--button-padding-block: var(--button-padding-vertical-md);
+		--button-padding-inline: var(--button-padding-horizontal-md);
+		--button-border-radius: var(--radius-md);
+		--style-border-radius-buttons-primary: var(--radius-md);
+		--style-border-radius-buttons-secondary: var(--radius-md);
+
+    /* This is a new setting for the tertiary button border width */
+    --style-border-width-tertiary: {{ settings.tertiary_button_border_width }}px;
+
+    /* Icons - these are missing from theme-styles-variables.liquid but declared in base.css*/
+    --size-2xs: var(--icon-size-2xs);
+    --size-xs: var(--icon-size-xs);
+    --size-sm: var(--icon-size-sm);
+    --size-md: var(--icon-size-md);
+    --size-lg: var(--icon-size-lg);
+
+    /* New: Checkbox variables - re-assign as needed */
+    --checkbox-background-color: var(--color-primary-button-background);
+    --checkbox-hover-background-color: transparent;
+    --checkbox-hover-border-color: var(--color-primary-400);
+    --checkbox-hover-border-color-dark: var(--color-white);
+    --checkbox-active-background-color: var(--color-primary-button-background);
+    --checkbox-active-border-color: var(--color-primary-button-border);
+    --checkbox-active-path-color: var(--color-primary-500);
+  }
+{% endstyle %}

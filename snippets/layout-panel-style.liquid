@@ -1,0 +1,45 @@
+{%- liquid
+  comment
+    Intended for blocks and sections that provide values for all the referenced settings.
+
+    Accepts:
+      settings: {block.settings || section.settings}
+  endcomment
+
+  assign horizontal_alignment = settings.horizontal_alignment
+
+  assign vertical_alignment = settings.vertical_alignment
+  if settings.align_baseline and vertical_alignment == 'flex-end'
+    assign vertical_alignment = 'last baseline'
+  endif
+
+  unless settings.content_direction == 'row'
+    assign horizontal_alignment = settings.horizontal_alignment_flex_direction_column
+    assign vertical_alignment = settings.vertical_alignment_flex_direction_column
+  endunless
+
+  assign vertical_alignment_mobile = vertical_alignment
+  assign horizontal_alignment_mobile = horizontal_alignment
+
+  if settings.vertical_on_mobile and vertical_alignment == 'last baseline'
+    assign vertical_alignment_mobile = 'flex-end'
+  endif
+
+  if settings.horizontal_alignment_mobile != blank and settings.horizontal_alignment_mobile != ''
+    assign horizontal_alignment_mobile = settings.horizontal_alignment_mobile
+  endif
+
+  if settings.vertical_alignment_mobile != blank and settings.vertical_alignment_mobile != ''
+    assign vertical_alignment_mobile = settings.vertical_alignment_mobile
+  endif
+-%}
+
+--flex-direction: {{ settings.content_direction | default: 'column' }}; --flex-wrap: nowrap; --flex-wrap-mobile: wrap;
+
+{% render 'gap-style', value: settings.gap %}
+{% if settings.gap_mobile != blank and settings.gap_mobile > 0 %}
+  {% render 'gap-style', value: settings.gap_mobile, name: 'gap-mobile' %}
+{% endif %}
+
+--horizontal-alignment: {{ horizontal_alignment }}; --vertical-alignment: {{ vertical_alignment }};
+--horizontal-alignment-mobile: {{ horizontal_alignment_mobile }}; --vertical-alignment-mobile: {{ vertical_alignment_mobile }};

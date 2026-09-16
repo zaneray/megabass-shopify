@@ -1,0 +1,75 @@
+{%- doc -%}
+  Renders a mega menu with a button.
+
+  @param {string} [menu] - The menu to render.
+  @param {string} [button] - The button to render.
+{%- enddoc -%}
+
+{% liquid
+  assign collection_style = block.settings.collection_style
+
+  capture submenu
+    content_for 'block', id: 'submenu', type: 'menu'
+  endcapture
+
+  capture button
+    content_for 'block', id: 'shop_button', type: 'button'
+  endcapture
+%}
+
+<div class="mega-menu-with-button">
+  <div class="mega-menu-list{% if collection_style %} collection-links{% endif %}">
+    {{ submenu }}
+  </div>
+  <div class="mega-menu-button">
+    {{ button }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mega Menu With Button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "collection_style",
+      "label": "Use collection style",
+      "default": false
+    },
+  ],
+  "presets": [
+    {
+      "name": "Mega Menu With Button"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  .mega-menu-with-button {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+    height: auto;
+    width: 100%;
+    max-width: 12.5rem;
+
+    .mega-menu-button {
+      margin-top: var(--padding-lg);
+
+      @media screen and (min-width: 992px) {
+        margin-top: 100%;
+      }
+
+      a {
+        --button-text-cta: var(--text-primary);
+        
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+{% endstylesheet %}

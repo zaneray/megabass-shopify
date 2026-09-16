@@ -1,0 +1,19 @@
+{%- doc -%}
+  Diagonal strikethrough for unavailable variant options.
+
+  @param {object} product_option - Option value (uses .available)
+  @param {boolean} [stretch] - When true, stretch SVG to fill the container corner-to-corner
+    (custom dropdown rows). Default slice aspect ratio is for button-sized options.
+{%- enddoc -%}
+{% unless product_option.available %}
+  <svg
+    viewBox="0 0 100 46"
+    preserveAspectRatio="{% if stretch %}none{% else %}xMidYMid slice{% endif %}"
+    class="variant-option__strikethrough{% if stretch %} variant-option__strikethrough--stretch{% endif %}"
+  >
+    {% # 25deg %}
+    <line x1="100" y1="0" x2="0" y2="46" vector-effect="non-scaling-stroke" />
+    {% # duplicate line for motion overlay %}
+    <line x1="100" y1="0" x2="0" y2="46" vector-effect="non-scaling-stroke" />
+  </svg>
+{% endunless %}

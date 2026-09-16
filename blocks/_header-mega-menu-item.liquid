@@ -1,0 +1,258 @@
+{%- doc -%}
+  Renders a header mega menu item block.
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings
+  assign title = block_settings.nav_label
+  assign link = block_settings.nav_link
+
+  capture children
+    content_for 'blocks'
+  endcapture
+%}
+
+<li
+  role="presentation"
+  class="menu-list__list-item"
+>
+<drawer-localization-component class="menu-drawer__localization">
+  <details
+  id="drawer-submenu"
+  class="drawer-submenu"
+>
+  {% comment %} Use /submenu so header-drawer open(target, event) receives the event and opens this details. {% endcomment %}
+  <summary
+    id="HeaderMegaMenu-localization"
+    aria-expanded="false"
+    on:click="header-drawer/open/submenu"
+    class="menu-list__link"
+    aria-controls="submenu-{{ forloop.index }}"
+    aria-expanded="false"
+    ref="menuitem"
+    tabindex="0"
+  >
+    <span class="menu-list__link-title">{{- title -}}</span>
+    <span class="svg-wrapper icon-caret">
+      {{- 'icon-caret.svg' | inline_asset_content -}}
+    </span>
+  </summary>
+
+  <div class="menu-list__submenu menu-drawer__submenu has-submenu" ref="submenu[]" id="submenu-{{ forloop.index }}">
+    <div
+      class="menu-drawer__nav-buttons navigation-desktop:hidden"
+      ref="navButtons"
+    >
+      <button
+        class="button menu-drawer__back-button link link--text focus-inset"
+        aria-expanded="true"
+        on:click="header-drawer/back"
+      >
+        <span class="svg-wrapper icon-caret icon-caret--backward">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+        {{ 'actions.back' | t }}
+      </button>
+    </div>
+    {% render 'group', children: children, settings: block.settings, shopify_attributes: block.shopify_attributes, class: 'menu-list__submenu-inner' %}
+  </div>
+</details>
+</drawer-localization-component>
+</li>
+
+{% schema %}
+{
+  "name": "t:names.menu", 
+  "tag": null,
+  "blocks": [{ "type": "_mega-menu-content" }],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Navigation",
+      "info": "Add a label and link to a main navigation item"
+    },
+    {
+      "type": "text",
+      "id": "nav_label",
+      "label": "Top Navigation Label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mega Menu Item"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.svg-wrapper.icon-caret,
+.icon-caret-menu {
+    transition: transform var(--animation-speed) var(--animation-easing);
+    width: 0.625rem;
+
+    @media screen and (min-width: 992px) {      
+      .drawer-submenu.closing & {
+        transform: rotate(0deg);
+      }
+
+      .drawer-submenu[open] & {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .menu-list__list-item .menu-list__link {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.375rem 0;
+    align-items: center;
+    gap: 0.5rem;
+    height: auto;
+    list-style: none;
+    color: var(--text-primary);
+    font-family: var(--font-family-heading);
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+
+    @media screen and (max-width: 991px) {
+      padding: 1.125rem 0 1.125rem 1.125rem;
+      
+      .svg-wrapper.icon-caret,
+      .icon-caret-menu {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  /* Mobile mega menu in drawer */
+  @media screen and (max-width: 991px) {
+    /* Style mega menu links to look like drawer menu items */
+    .menu-drawer__menu .menu-list__list-item {
+      width: 100%;
+      list-style: none;
+      border-bottom: 1px solid var(--color-border);
+
+      &:first-child {
+        border-top: 1px solid var(--color-border);
+      }
+    }
+
+    .menu-drawer__submenu-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--color-background);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      will-change: transform;
+      /* Prevent default drawer animations */
+      animation: none !important;
+
+      &.active {
+        transform: translateX(0);
+      }
+
+      &.closing {
+        transform: translateX(100%);
+      }
+    }
+
+    .menu-drawer__back-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-foreground);
+      flex-shrink: 0;
+      justify-content: flex-start;
+
+      .svg-wrapper {
+        display: flex;
+        align-items: center;
+      }
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    .menu-drawer__submenu-title {
+      font-family: var(--font-family-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .menu-drawer__submenu-content {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      opacity: 0;
+      transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1) 150ms;
+      
+      /* Override absolute positioning */
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      right: auto !important;
+      width: auto !important;
+      box-shadow: none !important;
+      clip-path: none !important;
+      visibility: visible !important;
+      background: transparent !important;
+      min-height: 0;
+
+      /* Make content visible */
+      .menu-list__submenu-inner {
+        opacity: 1 !important;
+        visibility: visible !important;
+      }
+
+      /* Remove non-interactive headings from tab order */
+      .menu__heading.accordion-false {
+        pointer-events: none;
+        cursor: default;
+        
+        &:focus {
+          outline: none;
+        }
+      }
+
+      summary.accordion-false {
+        pointer-events: none;
+        cursor: default;
+        list-style: none;
+        
+        &::-webkit-details-marker {
+          display: none;
+        }
+        
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .menu-drawer__submenu-wrapper.active .menu-drawer__submenu-content {
+      opacity: 1;
+    }
+
+    /* Hide mega menu items from main drawer navigation */
+    .menu-list__list-item {
+      display: list-item;
+    }
+  }
+{% endstylesheet %}

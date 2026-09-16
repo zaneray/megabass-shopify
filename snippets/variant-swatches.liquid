@@ -1,0 +1,234 @@
+{%- doc -%}
+  Renders a swatches variant picker, used within the product-swatches block.
+  A swatch will rendered in a pre-selected state if the context allows it.
+  Allowed contexts are search and filtered collections.
+
+  @param {object} product_resource - The product object, which contains variants and options.
+  @param {boolean} [has_option_selected] - Whether to render the swatches in a pre-selected state.
+  @param {boolean} [display_variant_images] - Use Color option values with variant featured media instead of Shopify swatch objects.
+  @param {boolean} [limit_visible_swatches] - Cap the number of swatches shown initially to 4, regardless of available space (used on the PLP grid; elsewhere swatches fit as many as the available space allows).
+
+  @example
+  {% render 'variant-swatches', product_resource: product %}
+{%- enddoc -%}
+
+{% stylesheet %}
+  swatches-variant-picker-component {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: var(--product-swatches-alignment-mobile);
+
+    @media screen and (min-width: 750px) {
+      justify-content: var(--product-swatches-alignment);
+    }
+
+    --overflow-list-padding-block: calc(
+        var(--product-swatches-padding-block-start) + var(--focus-outline-offset) + var(--focus-outline-width)
+      )
+      calc(var(--product-swatches-padding-block-end) + var(--focus-outline-offset) + var(--focus-outline-width));
+    --overflow-list-padding-inline: calc(
+        var(--product-swatches-padding-inline-start) + var(--focus-outline-offset) + (1.5 * var(--focus-outline-width))
+      )
+      calc(var(--product-swatches-padding-inline-end) + var(--focus-outline-offset) + var(--focus-outline-width));
+
+    overflow-list::part(list) {
+      gap: var(--gap-sm);
+    }
+  }
+
+  /* Let clicks and hover reach the full-size transparent radio, not the swatch graphic on top. */
+  swatches-variant-picker-component[data-display-variant-images='true']
+    .variant-option__button-label--has-swatch
+    :is(.swatch, svg) {
+    pointer-events: none;
+  }
+
+  swatches-variant-picker-component[data-display-variant-images='true']
+    .variant-option__button-label--has-swatch
+    input {
+    z-index: 1;
+  }
+
+  .hidden-swatches__count {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-40-60));
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+
+    &::before {
+      /* This doesn't work in Safari without the counter-reset. https://stackoverflow.com/a/40179718 */
+      counter-reset: overflow-count var(--overflow-count);
+      content: '+' counter(overflow-count);
+      line-height: 1;
+      cursor: pointer;
+    }
+  }
+
+  .hidden-swatches__count:hover {
+    color: var(--color-foreground-rgb);
+  }
+{% endstylesheet %}
+
+{% liquid
+  # Allow pre-selection of a swatch if there is a selected variant
+  # product.selected_variant is automatically set in filtered collection, filtered search and some unfiltered search contexts based on result relevance.
+  # Applying a filter updates the displayed image, so a swatch can help communicate the change.
+  assign allow_preselection = false
+
+  if product_resource.selected_variant or has_option_selected
+    assign allow_preselection = true
+  endif
+%}
+
+<swatches-variant-picker-component
+  data-product-id="{{ product_resource.id }}"
+  data-product-url="{{ product_resource.url }}"
+  {% if display_variant_images %}
+    data-display-variant-images="true"
+  {% endif %}
+  ref="swatchesVariantPicker"
+>
+  <form>
+    {% comment %}
+      Shopify swatch mode: first option with swatch data on values.
+      Variant image mode: Color/Colour option with variant featured media per value.
+    {% endcomment %}
+    {%- for product_option in product_resource.options_with_values -%}
+      {%- liquid
+        if display_variant_images
+          assign option_name_downcase = product_option.name | downcase
+          unless option_name_downcase == 'color' or option_name_downcase == 'colour'
+            continue
+          endunless
+        else
+          assign swatch_count = product_option.values | map: 'swatch' | compact | size
+          if swatch_count == 0
+            continue
+          endif
+        endif
+
+        assign swatch_option_position = product_option.position
+        assign swatch_option_key = 'option' | append: swatch_option_position
+      -%}
+
+      <fieldset class="variant-option variant-option--buttons variant-option--swatches">
+        {% capture children %}
+          {% liquid
+            # Tracks the count of swatches actually rendered (skipping any continued
+            # below), separate from forloop.index, so - when limit_visible_swatches
+            # is set - the first 4 are pre-assigned
+            assign visible_swatch_index = 0
+          %}
+          {%- for product_option_value in product_option.values -%}
+            {% liquid
+              assign featured_media = product_option_value.variant.featured_media
+              assign matched_variant = product_option_value.variant
+
+              if featured_media == blank
+                if product_option_value.variant == blank or display_variant_images
+                  for variant in product_resource.variants
+                    if variant[swatch_option_key] != product_option_value.name
+                      continue
+                    endif
+
+                    if variant.featured_media == blank
+                      continue
+                    endif
+
+                    unless display_variant_images
+                      unless variant.available
+                        continue
+                      endunless
+                    endunless
+
+                    assign featured_media = variant.featured_media
+                    assign matched_variant = variant
+                    break
+                  endfor
+                elsif product_option_value.product_url
+                  assign featured_media = product_option_value.variant.product.featured_media
+                endif
+              endif
+
+              if display_variant_images and featured_media == blank
+                continue
+              endif
+
+              assign visible_swatch_index = visible_swatch_index | plus: 1
+            %}
+
+            <li
+              class="variant-option__swatch"
+              {% if limit_visible_swatches and visible_swatch_index > 4 %}
+                slot="overflow"
+              {% endif %}
+            >
+              <label
+                data-media-id="{{ featured_media.id }}"
+                class="variant-option__button-label variant-option__button-label--has-swatch"
+                {% unless display_variant_images %}
+                  on:pointerenter="product-card/previewVariant/{{ featured_media.id }}"
+                  on:pointerleave="product-card/resetVariant"
+                {% endunless %}
+              >
+                <input
+                  type="radio"
+                  name="{{ product_option.name | escape }}-{{ product_resource.id }}-swatch"
+                  value="{{ product_option_value | escape }}"
+                  aria-label="{{ product_option_value.name }}"
+                  data-input-id="{{ product_option.position }}-{{ forloop.index0 }}"
+                  data-option-media-id="{{ featured_media.id }}"
+                  data-option-value-id="{{ product_option_value.id }}"
+                  data-option-available="{{ product_option_value.available }}"
+                  data-connected-product-url="{{ product_option_value.product_url }}"
+                  {% if display_variant_images %}
+                    data-swatch-image-url="{{ featured_media | image_url: width: 800 }}"
+                    on:pointerenter="product-card/previewSwatchMedia"
+                    on:pointerleave="product-card/resetVariant"
+                  {% endif %}
+                  {% if allow_preselection and product_option_value.selected %}
+                    checked
+                  {% endif %}
+                  data-variant-id="{{ matched_variant.id | default: product_option_value.variant.id }}"
+                  data-first-available-or-first-variant-id="{{ matched_variant.id | default: product_option_value.variant.id }}"
+                >
+                {% render 'swatch',
+                  swatch: product_option_value.swatch,
+                  variant_image: featured_media,
+                  force_variant_image: display_variant_images
+                %}
+                {% render 'strikethrough-variant', product_option: product_option_value %}
+              </label>
+            </li>
+          {%- endfor -%}
+          <li
+            slot="more"
+          >
+            <a
+              class="hidden-swatches__count"
+              aria-label="{{ 'actions.show_all_options' | t }}"
+              href="{{ product_resource.url }}"
+            ></a>
+          </li>
+        {% endcapture %}
+
+        {% liquid
+          assign swatch_max_items = ''
+          if limit_visible_swatches
+            assign swatch_max_items = 4
+          endif
+        %}
+        {% render 'overflow-list', children: children, ref: 'overflowList', max-items: swatch_max_items %}
+      </fieldset>
+    {%- endfor -%}
+    <script type="application/json">
+      {{ product_resource.selected_or_first_available_variant | json }}
+    </script>
+  </form>
+</swatches-variant-picker-component>

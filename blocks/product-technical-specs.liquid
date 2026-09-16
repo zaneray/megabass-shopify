@@ -1,0 +1,310 @@
+{%- liquid
+  assign block_settings = block.settings
+  assign product = closest.product
+
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+
+  assign lure_length = product.metafields.custom.lure_length.value
+  assign weight = product.metafields.custom.weight.value
+  assign hooks = product.metafields.custom.hooks.value
+  assign material = product.metafields.custom.material.value
+  assign quantity = product.metafields.custom.quantity.value
+  assign type = product.metafields.custom.type.value
+  assign sound = product.metafields.custom.sound.value
+  assign depth = product.metafields.custom.depth.value
+  assign blade = product.metafields.custom.blade.value
+  assign rod_length = product.metafields.custom.rod_length.value
+  assign lure_rating = product.metafields.custom.lure_rating.value
+  assign line = product.metafields.custom.line.value
+  assign power = product.metafields.custom.power.value
+  assign action = product.metafields.custom.action.value
+  assign pieces = product.metafields.custom.pieces.value
+  assign crown = product.metafields.custom.crown.value
+  assign fabric = product.metafields.custom.fabric.value
+  assign size = product.metafields.custom.size.value
+
+  assign has_specs = false
+  if lure_length != blank
+    assign has_specs = true
+  elsif weight != blank
+    assign has_specs = true
+  elsif hooks != blank
+    assign has_specs = true
+  elsif material != blank
+    assign has_specs = true
+  elsif quantity != blank
+    assign has_specs = true
+  elsif type != blank
+    assign has_specs = true
+  elsif sound != blank
+    assign has_specs = true
+  elsif depth != blank
+    assign has_specs = true
+  elsif blade != blank
+    assign has_specs = true
+  elsif rod_length != blank
+    assign has_specs = true
+  elsif lure_rating != blank
+    assign has_specs = true
+  elsif line != blank
+    assign has_specs = true
+  elsif power != blank
+    assign has_specs = true
+  elsif action != blank
+    assign has_specs = true
+  elsif pieces != blank
+    assign has_specs = true
+  elsif crown != blank
+    assign has_specs = true
+  elsif fabric != blank
+    assign has_specs = true
+  elsif size != blank
+    assign has_specs = true
+  endif
+-%}
+
+{%- if has_specs -%}
+  <div
+    class="product-technical-specs spacing-style"
+    style="{% render 'spacing-style', settings: block_settings %}"
+    {{ block.shopify_attributes }}
+  >
+    {%- if block_settings.heading != blank -%}
+      <h3 class="product-technical-specs__heading">{{ block_settings.heading | escape }}</h3>
+    {%- endif -%}
+
+    <dl class="product-technical-specs__grid">
+      {%- if lure_length != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_lure_length' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ lure_length }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if weight != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_weight' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ weight }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if hooks != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_hooks' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ hooks }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if material != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_material' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ material }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if quantity != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_quantity' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ quantity }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if type != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_type' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ type }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if sound != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_sound' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ sound }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if depth != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_depth' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ depth }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if blade != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_blade' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ blade }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if rod_length != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_rod_length' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ rod_length }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if lure_rating != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_lure_rating' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ lure_rating }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if line != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_line' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ line }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if power != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_power' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ power }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if action != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_action' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ action }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if pieces != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_pieces' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ pieces }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if crown != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_crown' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ crown }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if fabric != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_fabric' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ fabric }}</dd>
+        </div>
+      {%- endif -%}
+      {%- if size != blank -%}
+        <div class="product-technical-specs__item">
+          <dt class="product-technical-specs__label">{{ 'content.technical_spec_size' | t }}</dt>
+          <dd class="product-technical-specs__value">{{ size }}</dd>
+        </div>
+      {%- endif -%}
+    </dl>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-technical-specs {
+    width: 100%;
+  }
+
+  .product-technical-specs__heading {
+    margin-block: 0 var(--padding-md);
+    font-size: var(--font-h5--size);
+    font-weight: var(--font-heading--weight);
+    line-height: var(--font-h6--line-height);
+  }
+
+  .product-technical-specs__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--padding-sm) var(--padding-lg);
+    margin: 0;
+  }
+
+  .product-technical-specs__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--padding-md);
+    margin: 0;
+  }
+
+  .product-technical-specs__label {
+    flex-shrink: 0;
+    margin: 0;
+    font-size: var(--font-paragraph--size);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--font-paragraph--line-height);
+    text-transform: uppercase;
+  }
+
+  .product-technical-specs__value {
+    margin: 0;
+    font-size: var(--font-paragraph--size);
+    font-weight: var(--font-paragraph--weight);
+    line-height: var(--font-paragraph--line-height);
+    text-align: end;
+    /* text-transform: uppercase; */
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-technical-specs__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.product_technical_specs",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.resource_reference_product_technical_specs"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "Technical specifications"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_technical_specs",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

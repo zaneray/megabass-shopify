@@ -1,0 +1,157 @@
+{%- liquid
+  comment
+    Outputs CSS custom properties for grid layout.
+    Used by group-grid block/snippet.
+
+    Accepts:
+      settings: { block.settings } with grid_template_columns, gap, gap_mobile,
+                grid_template_columns_mobile, horizontal_alignment, vertical_alignment
+  endcomment
+
+  assign columns_value = settings.grid_template_columns
+  assign custom_columns = settings.grid_template_columns_custom | strip
+
+  if columns_value == 'custom' and custom_columns != blank
+    assign grid_template_columns = custom_columns
+  else
+    case columns_value
+      when '2_equal'
+        assign grid_template_columns = '1fr 1fr'
+      when '3_equal'
+        assign grid_template_columns = '1fr 1fr 1fr'
+      when '4_equal'
+        assign grid_template_columns = 'repeat(4, 1fr)'
+      when '5_equal'
+        assign grid_template_columns = 'repeat(5, 1fr)'
+      when '6_equal'
+        assign grid_template_columns = 'repeat(6, 1fr)'
+      when '2_1'
+        assign grid_template_columns = '2fr 1fr'
+      when '1_2'
+        assign grid_template_columns = '1fr 2fr'
+      when '1_3'
+        assign grid_template_columns = '1fr 3fr'
+      when '3_1'
+        assign grid_template_columns = '3fr 1fr'
+      when '3_2'
+        assign grid_template_columns = '3fr 2fr'
+      when '2_3'
+        assign grid_template_columns = '2fr 3fr'
+      when '1_2_1'
+        assign grid_template_columns = '1fr 2fr 1fr'
+      when '1_1_2'
+        assign grid_template_columns = '1fr 1fr 2fr'
+      when '2_1_1'
+        assign grid_template_columns = '2fr 1fr 1fr'
+      else
+        assign grid_template_columns = '1fr 1fr'
+    endcase
+  endif
+
+  comment
+    Tablet grid: 750px–1050px
+  endcomment
+  assign tablet_columns_value = settings.grid_template_columns_tablet | default: 'inherit'
+  assign has_tablet_columns = false
+  assign grid_template_columns_tablet = ''
+
+  if tablet_columns_value != 'inherit' and tablet_columns_value != blank
+    case tablet_columns_value
+      when '1_equal'
+        assign grid_template_columns_tablet = '1fr'
+      when '2_equal'
+        assign grid_template_columns_tablet = '1fr 1fr'
+      when '3_equal'
+        assign grid_template_columns_tablet = '1fr 1fr 1fr'
+      when '4_equal'
+        assign grid_template_columns_tablet = 'repeat(4, 1fr)'
+      when '2_1'
+        assign grid_template_columns_tablet = '2fr 1fr'
+      when '1_2'
+        assign grid_template_columns_tablet = '1fr 2fr'
+      when '1_3'
+        assign grid_template_columns_tablet = '1fr 3fr'
+      when '3_1'
+        assign grid_template_columns_tablet = '3fr 1fr'
+      when '3_2'
+        assign grid_template_columns_tablet = '3fr 2fr'
+      when '2_3'
+        assign grid_template_columns_tablet = '2fr 3fr'
+      when '1_2_1'
+        assign grid_template_columns_tablet = '1fr 2fr 1fr'
+      when '1_1_2'
+        assign grid_template_columns_tablet = '1fr 1fr 2fr'
+      when '2_1_1'
+        assign grid_template_columns_tablet = '2fr 1fr 1fr'
+      else
+        assign grid_template_columns_tablet = '1fr 1fr'
+    endcase
+    assign has_tablet_columns = true
+  endif
+
+  comment
+    Mobile grid: under 750px
+  endcomment
+  assign mobile_columns_value = settings.grid_template_columns_mobile | default: 'inherit'
+  assign has_mobile_columns = false
+  assign grid_template_columns_mobile = ''
+
+  if mobile_columns_value != 'inherit' and mobile_columns_value != blank
+    case mobile_columns_value
+      when '1_equal'
+        assign grid_template_columns_mobile = '1fr'
+      when '2_equal'
+        assign grid_template_columns_mobile = '1fr 1fr'
+      else
+        assign grid_template_columns_mobile = '1fr'
+    endcase
+    assign has_mobile_columns = true
+  endif
+
+  assign horizontal_alignment = settings.horizontal_alignment | default: 'stretch'
+  assign vertical_alignment = settings.vertical_alignment | default: 'stretch'
+
+  assign horizontal_alignment_tablet_raw = settings.horizontal_alignment_tablet | strip
+  assign vertical_alignment_tablet_raw = settings.vertical_alignment_tablet | strip
+  if horizontal_alignment_tablet_raw != blank
+    assign horizontal_alignment_tablet = horizontal_alignment_tablet_raw
+  else
+    assign horizontal_alignment_tablet = horizontal_alignment
+  endif
+  if vertical_alignment_tablet_raw != blank
+    assign vertical_alignment_tablet = vertical_alignment_tablet_raw
+  else
+    assign vertical_alignment_tablet = vertical_alignment
+  endif
+
+  assign horizontal_alignment_mobile_raw = settings.horizontal_alignment_mobile | strip
+  assign vertical_alignment_mobile_raw = settings.vertical_alignment_mobile | strip
+  if horizontal_alignment_mobile_raw != blank
+    assign horizontal_alignment_mobile = horizontal_alignment_mobile_raw
+  else
+    assign horizontal_alignment_mobile = horizontal_alignment
+  endif
+  if vertical_alignment_mobile_raw != blank
+    assign vertical_alignment_mobile = vertical_alignment_mobile_raw
+  else
+    assign vertical_alignment_mobile = vertical_alignment
+  endif
+-%}
+
+--grid-template-columns: {{ grid_template_columns }};
+--grid-justify-items: {{ horizontal_alignment }};
+--grid-align-items: {{ vertical_alignment }};
+--grid-justify-items-tablet: {{ horizontal_alignment_tablet }};
+--grid-align-items-tablet: {{ vertical_alignment_tablet }};
+--grid-justify-items-mobile: {{ horizontal_alignment_mobile }};
+--grid-align-items-mobile: {{ vertical_alignment_mobile }};
+{% if has_tablet_columns %}
+  --grid-template-columns-tablet: {{ grid_template_columns_tablet }};
+{% endif %}
+{% if has_mobile_columns %}
+  --grid-template-columns-mobile: {{ grid_template_columns_mobile }};
+{% endif %}
+{% comment %} Use grid-prefixed gap vars so nested .layout-panel-flex (group) doesn't inherit and use wrong gap {% endcomment %}
+{% render 'gap-style', value: settings.gap, name: 'grid-gap' %}
+{% render 'gap-style', value: settings.gap_tablet | default: settings.gap, name: 'grid-gap-tablet' %}
+{% render 'gap-style', value: settings.gap_mobile | default: settings.gap, name: 'grid-gap-mobile' %}

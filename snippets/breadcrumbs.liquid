@@ -1,0 +1,213 @@
+{%- assign t = template.name -%}
+
+<nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+  <ul class="breadcrumbs-list list-unstyled">
+    {%- case t -%}
+      {%- when 'page' -%}
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" href="{{ routes.root_url }}">{{ 'blocks.breadcrumbs.home' | t }}</a>
+          <span class="breadcrumbs-icon">{{ 'icon-arrow-right.svg' | inline_asset_content }}</span>
+        </li>
+        <li class="breadcrumbs-item">
+          <span class="breadcrumb-current" aria-current="page">{{ page.title }}</span>
+        </li>
+      {%- when 'product' -%}
+        {%- liquid
+          assign breadcrumb_collection_obj = null
+
+          if product.metafields.custom.breadcrumb_child_collection != blank
+            assign breadcrumb_collection_obj = product.metafields.custom.breadcrumb_child_collection.value
+          elsif product.parent != nil and product.parent.metafields.custom.breadcrumb_child_collection != blank
+            assign breadcrumb_collection_obj = product.parent.metafields.custom.breadcrumb_child_collection.value
+          endif
+        -%}
+
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" href="{{ routes.root_url }}">
+            {{ 'blocks.breadcrumbs.home' | t }}
+          </a>
+          <span class="breadcrumbs-icon">
+            {{ 'icon-arrow-right.svg' | inline_asset_content }}
+          </span>
+        </li>
+
+        {%- if breadcrumb_collection_obj != blank -%}
+          {%- assign parent_collection = breadcrumb_collection_obj.metafields.custom.parent_collection.value -%}
+
+          {%- if parent_collection != blank -%}
+            <li class="breadcrumbs-item">
+              <a class="breadcrumbs-link" href="{{ parent_collection.url }}">
+                {{ parent_collection.title }}
+              </a>
+              <span class="breadcrumbs-icon">
+                {{ 'icon-arrow-right.svg' | inline_asset_content }}
+              </span>
+            </li>
+          {%- endif -%}
+
+          <li class="breadcrumbs-item">
+            <a class="breadcrumbs-link" href="{{ breadcrumb_collection_obj.url }}">
+              {{ breadcrumb_collection_obj.title }}
+            </a>
+            <span class="breadcrumbs-icon">
+              {{ 'icon-arrow-right.svg' | inline_asset_content }}
+            </span>
+          </li>
+        {%- endif -%}
+
+        <li class="breadcrumbs-item">
+          <span class="breadcrumb-current" aria-current="page">
+            {{ product.title }}
+          </span>
+        </li>
+      {%- when 'collection' -%}
+        <li class="breadcrumbs-item">
+          <a class="breadcrumbs-link" href="{{ routes.root_url }}">
+            {{ 'blocks.breadcrumbs.home' | t }}
+          </a>
+          <span class="breadcrumbs-icon">
+            {{ 'icon-arrow-right.svg' | inline_asset_content }}
+          </span>
+        </li>
+
+        {%- assign parent_collection = collection.metafields.custom.parent_collection.value -%}
+
+        {%- if parent_collection != blank -%}
+          <li class="breadcrumbs-item">
+            <a class="breadcrumbs-link" href="{{ parent_collection.url }}">
+              {{ parent_collection.title }}
+            </a>
+            <span class="breadcrumbs-icon">
+              {{ 'icon-arrow-right.svg' | inline_asset_content }}
+            </span>
+          </li>
+        {%- endif -%}
+
+        <li class="breadcrumbs-item">
+          <span class="breadcrumb-current" aria-current="page">
+            {{ collection.title }}
+          </span>
+        </li>
+    {%- endcase -%}
+  </ul>
+</nav>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "{{ 'blocks.breadcrumbs.home' | t | escape }}",
+        "item": "{{ shop.url }}{{ routes.root_url }}"
+      }
+  
+      {%- assign position = 2 -%}
+  
+      {%- case t -%}
+  
+        {%- when 'page' -%}
+          ,
+          {
+            "@type": "ListItem",
+            "position": {{ position }},
+            "name": "{{ page.title | escape }}"
+          }
+  
+        {%- when 'collection' -%}
+          {%- assign parent_collection = collection.metafields.custom.parent_collection.value -%}
+  
+          {%- if parent_collection != blank -%}
+            ,
+            {
+              "@type": "ListItem",
+              "position": {{ position }},
+              "name": "{{ parent_collection.title | escape }}",
+              "item": "{{ shop.url }}{{ parent_collection.url }}"
+            }
+            {%- assign position = position | plus: 1 -%}
+          {%- endif -%}
+  
+          ,
+          {
+            "@type": "ListItem",
+            "position": {{ position }},
+            "name": "{{ collection.title | escape }}"
+          }
+  
+        {%- when 'product' -%}
+          {%- liquid
+            assign breadcrumb_collection_obj = null
+  
+            if product.metafields.custom.breadcrumb_child_collection != blank
+              assign breadcrumb_collection_obj = product.metafields.custom.breadcrumb_child_collection.value
+            elsif product.parent != nil and product.parent.metafields.custom.breadcrumb_child_collection != blank
+              assign breadcrumb_collection_obj = product.parent.metafields.custom.breadcrumb_child_collection.value
+            endif
+          -%}
+  
+          {%- if breadcrumb_collection_obj != blank -%}
+            {%- assign parent_collection = breadcrumb_collection_obj.metafields.custom.parent_collection.value -%}
+  
+            {%- if parent_collection != blank -%}
+              ,
+              {
+                "@type": "ListItem",
+                "position": {{ position }},
+                "name": "{{ parent_collection.title | escape }}",
+                "item": "{{ shop.url }}{{ parent_collection.url }}"
+              }
+              {%- assign position = position | plus: 1 -%}
+            {%- endif -%}
+  
+            ,
+            {
+              "@type": "ListItem",
+              "position": {{ position }},
+              "name": "{{ breadcrumb_collection_obj.title | escape }}",
+              "item": "{{ shop.url }}{{ breadcrumb_collection_obj.url }}"
+            }
+            {%- assign position = position | plus: 1 -%}
+          {%- endif -%}
+  
+          ,
+          {
+            "@type": "ListItem",
+            "position": {{ position }},
+            "name": "{{ product.title | escape }}"
+          }
+  
+      {%- endcase -%}
+    ]
+  }
+</script>
+  
+{% stylesheet %}
+  .breadcrumbs {
+    font-size: var(--text-paragraph-small);
+    margin-bottom: var(--text-spacing-md);
+  }
+
+  .breadcrumbs-list {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .breadcrumbs-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .breadcrumbs-icon {
+      color: var(--text-secondary);
+      width: 0.625rem;
+      margin-top: 0.125rem;
+    }
+
+    .breadcrumbs-link {
+      text-decoration: none;
+    }
+  }
+{% endstylesheet %}

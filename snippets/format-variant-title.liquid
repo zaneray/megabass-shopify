@@ -1,0 +1,48 @@
+{%- doc -%}
+  Formats a variant's display title.
+
+  Shopify's default variant title joins every option value with " / " (e.g.
+  "White Python / 3/4 oz"). For products that have both a Color and a Weight
+  option, this instead formats the title as "Color (Weight)" (e.g.
+  "White Python (3/4 oz)") so the two are shown together, per MEG-105.
+  All other products (missing either option, or with additional options
+  beyond Color/Weight) fall back to the variant's normal title unchanged.
+
+  @param {object} variant - The variant to format.
+  @param {object} [product] - The product the variant belongs to. Defaults to variant.product.
+
+  @example
+  {% render 'format-variant-title', variant: variant %}
+  {% render 'format-variant-title', variant: current_variant, product: product %}
+{%- enddoc -%}
+
+{% liquid
+  assign variant_product = product | default: variant.product
+  assign formatted_title = variant.title
+
+  if variant_product.options_with_values.size == 2
+    assign color_position = 0
+    assign weight_position = 0
+
+    for product_option in variant_product.options_with_values
+      assign option_name_downcase = product_option.name | downcase
+      if option_name_downcase == 'color' or option_name_downcase == 'colour'
+        assign color_position = product_option.position
+      elsif option_name_downcase == 'weight'
+        assign weight_position = product_option.position
+      endif
+    endfor
+
+    if color_position > 0 and weight_position > 0
+      assign color_option_key = 'option' | append: color_position
+      assign weight_option_key = 'option' | append: weight_position
+      assign color_value = variant[color_option_key]
+      assign weight_value = variant[weight_option_key]
+
+      if color_value != blank and weight_value != blank
+        assign formatted_title = color_value | append: ' (' | append: weight_value | append: ')'
+      endif
+    endif
+  endif
+%}
+{{- formatted_title -}}

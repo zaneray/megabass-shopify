@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "context": {
+    "market": "us"
+  },
+  "parent": "collection.rods.json",
+  "sections": {
+    "section": {
+      "settings": {
+        "content_direction": "column",
+        "section_width": "page-width",
+        "section_height": "custom",
+        "section_height_custom": 35,
+        "background_media": "image",
+        "background_image": "shopify://shop_images/GMOX3206-3.jpg",
+        "background_image_position": "cover"
+      },
+      "blocks": {}
+    },
+    "main": {
+      "settings": {
+        "layout_type": "grid"
+      },
+      "blocks": {
+        "filters": {
+          "disabled": false,
+          "settings": {
+            "text_label_case": "uppercase",
+            "enable_sorting": true
+          }
+        },
+        "product-card": {
+          "disabled": false,
+          "settings": {}
+        }
+      }
+    }
+  }
+}

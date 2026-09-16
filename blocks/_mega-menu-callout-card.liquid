@@ -1,0 +1,449 @@
+{%- doc -%}
+  Renders a mega menu callout card (up to 4 cards).
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings 
+  
+  # Card 1
+  assign card_link = block_settings.card_link
+  assign card_image = block_settings.card_image
+  assign card_heading = block_settings.card_heading
+  assign card_text = block_settings.card_text
+  assign button_label = block_settings.button_label
+  assign button_link = block_settings.button_link
+  assign color_scheme = block_settings.shop_card_color_scheme
+  
+  # Card 2
+  assign card_link_2 = block_settings.card_link_2
+  assign card_image_2 = block_settings.card_image_2
+  assign card_heading_2 = block_settings.card_heading_2
+  assign card_text_2 = block_settings.card_text_2
+  assign button_label_2 = block_settings.button_label_2
+  assign button_link_2 = block_settings.button_link_2
+  assign color_scheme_2 = block_settings.shop_card_color_scheme_2
+  
+  # Card 3
+  assign card_link_3 = block_settings.card_link_3
+  assign card_image_3 = block_settings.card_image_3
+  assign card_heading_3 = block_settings.card_heading_3
+  assign card_text_3 = block_settings.card_text_3
+  assign button_label_3 = block_settings.button_label_3
+  assign button_link_3 = block_settings.button_link_3
+  assign color_scheme_3 = block_settings.shop_card_color_scheme_3
+  
+  # Card 4
+  assign card_link_4 = block_settings.card_link_4
+  assign card_image_4 = block_settings.card_image_4
+  assign card_heading_4 = block_settings.card_heading_4
+  assign card_text_4 = block_settings.card_text_4
+  assign button_label_4 = block_settings.button_label_4
+  assign button_link_4 = block_settings.button_link_4
+  assign color_scheme_4 = block_settings.shop_card_color_scheme_4
+  
+  assign media_class = 'media-landscape'
+  
+  # Count how many cards have content
+  assign card_count = 0
+  if card_image != blank or card_heading != blank or card_text != blank
+    assign card_count = card_count | plus: 1
+  endif
+  if card_image_2 != blank or card_heading_2 != blank or card_text_2 != blank
+    assign card_count = card_count | plus: 1
+  endif
+  if card_image_3 != blank or card_heading_3 != blank or card_text_3 != blank
+    assign card_count = card_count | plus: 1
+  endif
+  if card_image_4 != blank or card_heading_4 != blank or card_text_4 != blank
+    assign card_count = card_count | plus: 1
+  endif
+%}
+
+<ul class="list-unstyled mega-menu-callout-card-grid" data-card-count="{{ card_count }}">
+  {% comment %} Card 1 {% endcomment %}
+  {%- if card_image != blank or card_heading != blank or card_text != blank -%}
+    <li class="mega-menu-callout-card">
+      {%- if card_link != blank -%}
+        <a class="link-unstyled callout-anchor" href="{{ card_link }}">
+      {%- endif -%}
+        <div id="Card-{{ section.id }}-{{ block.id }}-1" class="callout-card">
+          <div class="media callout-card-media-menu{% if card_image == blank %} placeholder{% endif %} {{ media_class }}">
+            {%- if card_image -%}
+              {{ card_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: card_image.alt | escape }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="mega-menu-callout-card-info color-{{ color_scheme }}">
+            {%- if card_heading != blank -%}
+              {{ card_heading }}
+            {%- endif -%}
+            {%- if card_text != blank -%}
+              <p class="paragraph-sm">{{ card_text }}</p>
+            {%- endif -%}
+            {%- if button_label != blank and button_link != blank -%}
+              <a href="{{ button_link }}" class="button button-primary button-sm">{{ button_label }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- if card_link != blank -%}
+        </a>
+      {%- endif -%}
+    </li>
+  {%- endif -%}
+
+  {% comment %} Card 2 {% endcomment %}
+  {%- if card_image_2 != blank or card_heading_2 != blank or card_text_2 != blank -%}
+    <li class="mega-menu-callout-card">
+      {%- if card_link_2 != blank -%}
+        <a class="link-unstyled callout-anchor" href="{{ card_link_2 }}">
+      {%- endif -%}
+        <div id="Card-{{ section.id }}-{{ block.id }}-2" class="callout-card">
+          <div class="media callout-card-media-menu{% if card_image_2 == blank %} placeholder{% endif %} {{ media_class }}">
+            {%- if card_image_2 -%}
+              {{ card_image_2 | image_url: width: 600 | image_tag: loading: 'lazy', alt: card_image_2.alt | escape }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="mega-menu-callout-card-info color-{{ color_scheme_2 }}">
+            {%- if card_heading_2 != blank -%}
+              {{ card_heading_2 }}
+            {%- endif -%}
+            {%- if card_text_2 != blank -%}
+              <p class="paragraph-sm">{{ card_text_2 }}</p>
+            {%- endif -%}
+            {%- if button_label_2 != blank and button_link_2 != blank -%}
+              <a href="{{ button_link_2 }}" class="button button-primary button-sm">{{ button_label_2 }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- if card_link_2 != blank -%}
+        </a>
+      {%- endif -%}
+    </li>
+  {%- endif -%}
+
+  {% comment %} Card 3 {% endcomment %}
+  {%- if card_image_3 != blank or card_heading_3 != blank or card_text_3 != blank -%}
+    <li class="mega-menu-callout-card">
+      {%- if card_link_3 != blank -%}
+        <a class="link-unstyled callout-anchor" href="{{ card_link_3 }}">
+      {%- endif -%}
+        <div id="Card-{{ section.id }}-{{ block.id }}-3" class="callout-card">
+          <div class="media callout-card-media-menu{% if card_image_3 == blank %} placeholder{% endif %} {{ media_class }}">
+            {%- if card_image_3 -%}
+              {{ card_image_3 | image_url: width: 600 | image_tag: loading: 'lazy', alt: card_image_3.alt | escape }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="mega-menu-callout-card-info color-{{ color_scheme_3 }}">
+            {%- if card_heading_3 != blank -%}
+              {{ card_heading_3 }}
+            {%- endif -%}
+            {%- if card_text_3 != blank -%}
+              <p class="paragraph-sm">{{ card_text_3 }}</p>
+            {%- endif -%}
+            {%- if button_label_3 != blank and button_link_3 != blank -%}
+              <a href="{{ button_link_3 }}" class="button button-primary button-sm">{{ button_label_3 }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- if card_link_3 != blank -%}
+        </a>
+      {%- endif -%}
+    </li>
+  {%- endif -%}
+
+  {% comment %} Card 4 {% endcomment %}
+  {%- if card_image_4 != blank or card_heading_4 != blank or card_text_4 != blank -%}
+    <li class="mega-menu-callout-card">
+      {%- if card_link_4 != blank -%}
+        <a class="link-unstyled callout-anchor" href="{{ card_link_4 }}">
+      {%- endif -%}
+        <div id="Card-{{ section.id }}-{{ block.id }}-4" class="callout-card">
+          <div class="media callout-card-media-menu{% if card_image_4 == blank %} placeholder{% endif %} {{ media_class }}">
+            {%- if card_image_4 -%}
+              {{ card_image_4 | image_url: width: 600 | image_tag: loading: 'lazy', alt: card_image_4.alt | escape }}
+            {%- else -%}
+              {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="mega-menu-callout-card-info color-{{ color_scheme_4 }}">
+            {%- if card_heading_4 != blank -%}
+              {{ card_heading_4 }}
+            {%- endif -%}
+            {%- if card_text_4 != blank -%}
+              <p class="paragraph-sm">{{ card_text_4 }}</p>
+            {%- endif -%}
+            {%- if button_label_4 != blank and button_link_4 != blank -%}
+              <a href="{{ button_link_4 }}" class="button button-primary button-sm">{{ button_label_4 }}</a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- if card_link_4 != blank -%}
+        </a>
+      {%- endif -%}
+    </li>
+  {%- endif -%}
+</ul>
+
+{% stylesheet %}
+  ul.mega-menu-callout-card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+
+    @media screen and (min-width: 1024px) {
+      flex-direction: row;
+    }
+
+    @media screen and (min-width: 1440px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &[data-card-count="3"],
+    &[data-card-count="4"] {
+      @media screen and (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* If there are 3 or 4 cards, display them in a 2x2 grid on desktop */
+    &[data-card-count="3"] {
+      @media screen and (min-width: 1440px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    &[data-card-count="4"] {
+      @media screen and (min-width: 1440px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* If there's only 1 card, center it in the second column */
+    &[data-card-count="1"] li:only-child {
+      grid-column: 2;
+    }
+  }
+
+  .mega-menu-callout-card {
+    border-radius: var(--radius-md, 0.25rem);
+    overflow: hidden;
+    
+    @media screen and (min-width: 992px) {
+      max-width: 325px;
+    }
+  }
+  
+  .callout-card-media-menu {
+    position: relative;
+  }
+  
+  .callout-card-media-menu img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);
+    pointer-events: none;
+  }
+  
+  .mega-menu-callout-card-info {
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.625rem;
+    flex: 1 0 0;
+    white-space: wrap;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Mega Menu Callout Card",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "card_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "card_text",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "url",
+      "id": "card_link",
+      "label": "Card link",
+      "info": "Makes the entire card clickable. Overrides button link."
+    },
+    {
+      "type": "color_scheme",
+      "id": "shop_card_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "card_heading_2",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "card_text_2",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Button link"
+    },
+    {
+      "type": "url",
+      "id": "card_link_2",
+      "label": "Card link",
+      "info": "Makes the entire card clickable. Overrides button link."
+    },
+    {
+      "type": "color_scheme",
+      "id": "shop_card_color_scheme_2",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "card_heading_3",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "card_text_3",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label_3",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_3",
+      "label": "Button link"
+    },
+    {
+      "type": "url",
+      "id": "card_link_3",
+      "label": "Card link",
+      "info": "Makes the entire card clickable. Overrides button link."
+    },
+    {
+      "type": "color_scheme",
+      "id": "shop_card_color_scheme_3",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Card 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "card_image_4",
+      "label": "Image"
+    },
+    {
+      "type": "richtext",
+      "id": "card_heading_4",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "card_text_4",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_label_4",
+      "label": "Button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_link_4",
+      "label": "Button link"
+    },
+    {
+      "type": "url",
+      "id": "card_link_4",
+      "label": "Card link",
+      "info": "Makes the entire card clickable. Overrides button link."
+    },
+    {
+      "type": "color_scheme",
+      "id": "shop_card_color_scheme_4",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mega Menu Callout Card"
+    }
+  ]
+}
+{% endschema %}

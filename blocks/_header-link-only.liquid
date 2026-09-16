@@ -1,0 +1,60 @@
+{%- doc -%}
+  Renders a link with no submenu.
+
+  @param {string} [variant] - What version of the menu to render. Defaults to header menu.
+  @param {string} [transparent] - Show a transparent menu
+{%- enddoc -%}
+
+{% liquid
+  assign block_settings = block.settings
+  assign title = block_settings.nav_label
+  assign link = block_settings.nav_link
+%}
+
+<li
+  role="presentation"
+  class="menu-list__list-item"
+  on:focus="/activate"
+  on:blur="/deactivate"
+  on:pointerenter="/activate"
+  on:pointerleave="/deactivate"
+>
+  <a
+    href="{{ link }}"
+    data-skip-node-update="true"
+    class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}"
+    ref="menuitem"
+  >
+    <span class="menu-list__link-title{% if title contains 'sale' or title contains 'Sale' %} sale{% endif %}">{{- title -}}</span>
+  </a>
+</li>
+
+{% schema %}
+{
+  "name": "t:names.header_link_only",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main Navigation",
+      "info": "Add a label and link to a main navigation item"
+    },
+    {
+      "type": "text",
+      "id": "nav_label",
+      "label": "Top Navigation Label"
+    },
+    {
+      "type": "url",
+      "id": "nav_link",
+      "label": "Top Navigation Label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.header_link_only"
+
+    }
+  ]
+}
+{% endschema %}

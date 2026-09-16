@@ -1,0 +1,29 @@
+{% if block_settings.navigation_bar == true %}
+  <div
+    class="menu-list menu-list--mobile"
+    style="--menu-horizontal-gap: 15px; --mobile-nav-margin: auto;"
+    data-hydration-key="header-menu-mobile-navigation-bar"
+  >
+    <div class="menu-list__scroll-container">
+      <ul
+        class="menu-list__list list-unstyled"
+        role="list"
+      >
+        {% for link in block_settings.menu.links %}
+          <li>
+            <a
+              href="{{ link.url }}"
+              id="MenuItem-{{ link.handle }}"
+              class="menu-list__item"
+              {% if link.current %}
+                aria-current="page"
+              {% endif %}
+            >
+              {{- link.title -}}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

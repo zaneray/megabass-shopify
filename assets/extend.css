@@ -1,0 +1,514 @@
+/* Utility */
+
+@media screen and (max-width: 749px) {
+  .hidden--mobile,
+  .mobile\:hidden {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .hidden--desktop,
+  .desktop\:hidden {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/* Navigation-specific breakpoint helpers */
+@media screen and (max-width: 991px) {
+  .navigation\:hidden {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .navigation-desktop\:hidden {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: none !important;
+  }
+}
+
+/*
+  When the desktop menu overflows at 992px+, data-menu-style switches to drawer
+  but the default menu rules hide the hamburger. Keep the drawer visible for overflow.
+*/
+@media screen and (min-width: 992px) {
+  #header-component[data-menu-style='drawer'] .header__drawer {
+    /* stylelint-disable-next-line declaration-no-important */
+    display: flex !important;
+  }
+}
+
+/* Button */
+.button,
+.button:not(.button-secondary,.button-unstyled),
+.shopify-payment-button__button {
+  outline-color: var(--button-background-color);
+  gap: var(--button-gap-md);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-body);
+  letter-spacing: var(--letter-spacing-action);
+  font-size: var(--text-paragraph-small);
+  line-height: var(--line-height-input);
+}
+
+.button, .button-secondary, button.shopify-payment-button__button--unbranded {
+  --font-paragraph--size: var(--text-paragraph-small);
+  --font-paragraph--weight: var(--font-weight-semibold);
+}
+
+button.shopify-payment-button__button--unbranded {
+  --button-background-color: var(--color-secondary-button-background);
+}
+
+.button[aria-disabled='true'],
+.button:disabled {
+	/* Opacity is set to 0.5 in base.css, override per Figma */
+  opacity: 1;
+}
+
+.button,
+button.shopify-payment-button__button--unbranded,
+.button-primary,
+.button-secondary,
+.button-tertiary,
+.link {
+	gap: var(--button-gap-md);
+	font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-body);
+  letter-spacing: var(--letter-spacing-action);
+  font-size: var(--text-paragraph-small);
+  line-height: var(--line-height-input);
+}
+
+.button-primary	{
+	border: 1px solid var(--color-primary-button-border);
+}
+
+.button-tertiary	{
+	--button-color: var(--color-tertiary-button-text);
+	--button-background-color: var(--color-tertiary-button-background);
+	--button-border-color: var(--color-tertiary-button-border);
+	--button-border-width: var(--style-border-width-tertiary);
+}
+
+.button-tertiary:hover {
+  --button-color: var(--color-tertiary-button-hover-text);
+  --button-background-color: var(--color-tertiary-button-hover-background);
+  --button-border-color: var(--color-tertiary-button-hover-border);
+}
+
+.button-primary[disabled],
+.button-primary[aria-disabled='true'],
+.button-primary:disabled {
+	--button-color: var(--color-primary-button-disabled-text);
+	--button-background-color: var(--color-primary-button-disabled-background);
+	--button-border-color: var(--color-primary-button-disabled-border);
+}
+
+.button-secondary[disabled],
+.button-secondary[aria-disabled='true'],
+.button-secondary:disabled {
+	--color-secondary-button-disabled-border: var(--color-secondary-button-disabled-background);
+
+	--button-color: var(--color-secondary-button-disabled-text);
+	--button-background-color: var(--color-secondary-button-disabled-background);
+	--button-border-color: var(--color-secondary-button-disabled-border);
+}
+
+.button-tertiary[disabled],
+.button-tertiary[aria-disabled='true'],
+.button-tertiary:disabled {
+	/* BUG with mapping hex alpha values such as #00000000 to theme settings with correct alpha values, this is a workaround to set the background to transparent */
+	--color-tertiary-button-disabled-background: transparent;
+
+	--button-color: var(--color-tertiary-button-disabled-text);
+	--button-background-color: var(--color-tertiary-button-disabled-background);
+	--button-border-color: var(--color-tertiary-button-disabled-border);
+}
+
+.button-sm {
+	--button-padding-block: var(--button-padding-vertical-sm);
+	--button-padding-inline: var(--button-padding-horizontal-sm);
+
+	font-size: var(--text-paragraph-x-small);
+}
+
+.button-lg {
+	--button-padding-block: var(--button-padding-vertical-lg);
+	--button-padding-inline: var(--button-padding-horizontal-lg);
+
+	font-size: var(--text-paragraph-medium);
+}
+
+/* This is button CTA. Horizon uses `a` and `.link` for this button style. You may need to tweak this for your theme. */
+
+.link,
+a.link,
+.text-block.link > * {
+  --button-color: var(--color-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+
+
+  &:hover {
+    --color-primary-hover : var(--text-decoration-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+}
+
+/* Custom - Typography */
+
+/* Base text and heading styles */
+p,
+.paragraph,
+.paragraph-md,
+.paragraph-md > *,
+.paragraph:not(.button),
+.paragraph > *,
+.text-block.paragraph :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: 0;
+  margin-bottom: var(--text-spacing-md);
+  font-size: var(--text-paragraph-medium);
+  line-height: var(--line-height-base);
+  font-weight: var(--font-weight-base);
+  font-size: var(--text-paragraph-medium);
+}
+
+.paragraph-xs,
+.paragraph-xs > * {
+  font-size: var(--text-paragraph-x-small);
+  margin-bottom: var(--text-spacing-xs);
+}
+
+small,
+.paragraph-sm,
+.paragraph-sm > * {
+  font-size: var(--text-paragraph-small);
+  margin-bottom: var(--text-spacing-sm);
+}
+
+.paragraph-lg,
+.paragraph-lg > * {
+  font-size: var(--text-paragraph-large);
+}
+
+.paragraph-xs:last-child, .paragraph-xs:last-of-type,
+.paragraph-xs > *:last-child,
+.paragraph-xs > *:last-of-type,
+.paragraph-sm:last-child,
+.paragraph-sm:last-of-type,
+.paragraph-sm > *:last-child,
+.paragraph-sm > *:last-of-type,
+.paragraph-lg:last-child,
+.paragraph-lg:last-of-type,
+.paragraph-lg > *:last-child,
+.paragraph-lg > *:last-of-type,
+small:last-child, small:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Eyebrow */
+/* Eyebrow is the same as subheading. Adding eyebrow x-large to match subheading large */
+.eyebrow,
+.eyebrow-sm,
+.text-block.eyebrow > * {
+  font-family: var(--font-family-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  margin-bottom: 0.5rem;
+  font-size: var(--text-eyebrow-small);
+  text-transform: uppercase;
+}
+
+.eyebrow + h1,
+.eyebrow + h2,
+.eyebrow-sm + h1,
+.eyebrow-sm + h2,
+.eyebrow-lg + h1,
+.eyebrow-lg + h2 {
+  margin-top: 0;
+}
+
+.eyebrow-lg,
+.text-block.eyebrow-lg > * {
+  font-family: var(--font-family-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  margin-bottom: 0.5rem;
+  font-size: var(--text-eyebrow-large);
+  text-transform: uppercase;
+}
+
+.eyebrow-x-large,
+.text-block.eyebrow-x-large > * {
+  font-family: var(--font-family-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  margin-bottom: 0.5rem;
+  font-size: var(--text-eyebrow-x-large);
+  text-transform: uppercase;
+}
+
+.action-sm {
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-body);
+  letter-spacing: var(--letter-spacing-action);
+  font-size: var(--text-paragraph-x-small);
+  line-height: var(--line-height-small);
+}
+
+.action-md {
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-body);
+  letter-spacing: var(--letter-spacing-action);
+  font-size: var(--text-paragraph-small);
+  line-height: var(--line-height-input);
+}
+
+.action-lg {
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-body);
+  letter-spacing: var(--letter-spacing-action);
+  font-size: var(--text-paragraph-medium);
+  line-height: var(--line-height-base);
+}
+
+.caption {
+  font-style: italic;
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+}
+
+em {
+  font-style: italic;
+}
+
+pre {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+	color: var(--color-foreground-muted);
+}
+
+/* Helpers */
+
+.bold {
+  font-weight: var(--font-weight-bold);
+}
+
+.semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.base {
+  font-weight: var(--font-weight-base);
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.display-1 {
+  font-family: var(--font-family-heading-secondary);
+  font-size: 6.25vw;
+}
+
+/* Mobile Layout Overrides */
+@media screen and (max-width: 749px) {
+  /* Mobile gap override for layout panels */
+  .layout-panel-flex {
+    gap: var(--gap-mobile, var(--gap));
+  }
+
+  /* Mobile alignment/position overrides for column layout */
+  .layout-panel-flex--column {
+    align-items: var(--horizontal-alignment-mobile, var(--horizontal-alignment));
+    justify-content: var(--vertical-alignment-mobile, var(--vertical-alignment));
+  }
+
+  /* Mobile alignment/position overrides for mobile-column */
+  .mobile-column {
+    align-items: var(--horizontal-alignment-mobile, var(--horizontal-alignment));
+  }
+
+  /* Mobile alignment/position overrides for row layout (when not mobile-column) */
+  .layout-panel-flex--row:not(.mobile-column) {
+    align-items: var(--horizontal-alignment-mobile, var(--horizontal-alignment));
+    justify-content: var(--vertical-alignment-mobile);
+  }
+}
+
+/* Checkbox */
+.checkbox {
+  --checkbox-size: 24px;
+}
+
+.checkbox .checkmark {
+  --checkbox-border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+}
+
+.checkbox .checkmark {
+  transition: border-color 0.25s ease-out, background-color 0.25s ease-out;
+}
+
+.checkbox .checkmark path {
+  transition: path 0.25s ease-out, opacity 0.25s ease-out;
+}
+
+.checkbox__label-text {
+  overflow: visible;
+}
+
+.checkbox__input {
+  &:focus-visible + .checkbox__label .checkmark {
+    outline: var(--focus-outline-width) solid var(--color-accent-300);
+  }
+
+  &:checked + .checkbox__label .checkmark {
+    --checkbox-border: 1px solid var(--checkbox-hover-border-color);
+    background-color: var(--checkbox-hover-background-color);
+  }
+
+  &:checked + .checkbox__label .checkmark path {
+    stroke: var(--checkbox-active-path-color);
+  }
+
+  &:hover:not(:disabled):not(:checked) + .checkbox__label .checkmark {
+    --checkbox-border: 1px solid var(--checkbox-hover-border-color);
+    background-color: var(--checkbox-hover-background-color);
+  }
+
+  &:hover:not(:disabled):not(:checked) + .checkbox__label .checkmark path {
+    stroke: var(--color-primary);
+    opacity: var(--opacity-50);
+  }
+}
+
+/* Dark & Grey theme Checkbox */
+.color-scheme-2 .checkbox .checkmark
+.color-scheme-3 .checkbox .checkmark {
+  --checkbox-border: 1px solid var(--color-neutral-500);
+
+  &:checked + .checkbox__label .checkmark {
+    --checkbox-hover-border-color: var(--color-primary-200);
+    background-color: var(--checkbox-hover-background-color);
+  }
+
+  &:hover:not(:disabled):not(:checked) + .checkbox__label .checkmark {
+    --checkbox-hover-border-color: var(--color-primary-200);  
+    background-color: var(--checkbox-hover-background-color);
+  }
+
+  &:hover:not(:disabled):not(:checked) + .checkbox__label .checkmark path {
+    stroke: var(--color-primary-200);
+    opacity: var(--opacity-30);
+  }
+}
+
+.color-scheme-2 .checkbox__input:checked + .checkbox__label .checkmark path {
+  stroke: var(--checkbox-hover-border-color-dark);
+}
+
+.color-scheme-3 .checkbox__input:checked + .checkbox__label .checkmark path  {
+  stroke: var(--checkbox-active-path-color);
+}
+
+input,
+textarea,
+select,
+select option,
+.button,
+button,
+.email-signup__input {
+  /* Shared border-radius token for form controls */
+  border-radius: var(--radius-md);
+}
+
+input:hover,
+textarea:hover,
+.quantity-selector:hover {
+  --color-input-hover-background: transparent;
+}
+
+/* Group (Grid) block */
+.group-block--grid .group-block__link {
+  position: absolute;
+  inset: 0;
+}
+
+.group-block--grid .group-block__link ~ :is(.group-block-content, .group-block__media-wrapper) {
+  pointer-events: none;
+}
+
+.group-block--grid .group-block__link ~ :is(.group-block-content, .group-block__media-wrapper) :is(a, button, input, textarea, select) {
+  pointer-events: auto;
+}
+
+.group-block--grid .group-block__link ~ .group-block-content--design-mode {
+  pointer-events: auto;
+}
+
+.layout-panel-grid {
+  display: grid;
+  grid-template-columns: var(--grid-template-columns, 1fr 1fr);
+  gap: var(--grid-gap);
+  justify-items: var(--grid-justify-items, stretch);
+  align-items: var(--grid-align-items, stretch);
+  height: 100%;
+}
+
+.layout-panel-grid > * {
+  min-width: 0;
+}
+
+/* Tablet: only target this block's grid, not nested .layout-panel-grid */
+@media screen and (min-width: 750px) and (max-width: 1050px) {
+  .group-block--grid:not(.layout-panel-grid *) > .group-block-content.layout-panel-grid,
+  .layout-panel-grid .layout-panel-grid {
+    gap: var(--grid-gap-tablet);
+    justify-items: var(--grid-justify-items-tablet);
+    align-items: var(--grid-align-items-tablet);
+  }
+
+  .group-block--grid:not(.layout-panel-grid *) > .group-block-content.layout-panel-grid--has-tablet-overrides,
+  .layout-panel-grid .layout-panel-grid--has-tablet-overrides {
+    grid-template-columns: var(--grid-template-columns-tablet);
+  }
+}
+
+/* Mobile: only target this block's grid, not nested .layout-panel-grid */
+@media screen and (max-width: 749px) {
+  .group-block--grid:not(.layout-panel-grid *) > .group-block-content.layout-panel-grid,
+  .layout-panel-grid .layout-panel-grid {
+    gap: var(--grid-gap-mobile);
+    justify-items: var(--grid-justify-items-mobile);
+    align-items: var(--grid-align-items-mobile);
+  }
+
+  .group-block--grid:not(.layout-panel-grid *) > .group-block-content.layout-panel-grid--has-mobile-overrides,
+  .layout-panel-grid .layout-panel-grid--has-mobile-overrides {
+    grid-template-columns: var(--grid-template-columns-mobile);
+  }
+}
+
+input:hover, textarea:hover {
+  background-color: transparent;
+}
+
+summary {
+  padding-block: 0;
+}
+
+/* extend.css — main carousel only */
+.resource-list__carousel slideshow-arrows {
+  mix-blend-mode: normal;
+}

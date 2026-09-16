@@ -1,0 +1,483 @@
+<div class="style-guide-page">
+  <style>
+    .container-xl {
+      max-width: 1200px;
+      padding-inline: 4.2vw;
+    }
+    .style-guide .grid-auto {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-rows: minmax(100px, min-content);
+      margin-bottom: 2rem;
+      grid-gap: 2rem;
+    }
+		.style-guide hr {
+				margin: 2rem auto 3rem;
+		}
+    .style-guide .grid-rows {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    }
+    .style-guide .grid-large {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      grid-auto-rows: row;
+    }
+    @media (min-width: 1024px) {
+      .style-guide .grid-large {
+        grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+      }
+    }
+    .style-guide .grid-small {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2rem;
+      grid-auto-flow: row;
+    }
+    .style-guide .grid-item {
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      {% comment %} align-items: center;
+      justify-content: center; {% endcomment %}
+    }
+    .style-guide .grid-item.font-block,
+    .style-guide .grid-item.button-block {
+      align-items: flex-start;
+    }
+    .style-guide #colors .grid-item {
+      text-align: left;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .style-guide #colors .grid-item p:not(.heading-6),
+    .style-guide #colors .grid-item pre {
+      margin: 0;
+      font-size: 0.87rem;
+    }
+    .style-guide #colors .grid-item p.heading-6 {
+      margin: 0;
+    }
+    .style-guide .color-block {
+      display: block !important;
+      width: 100%;
+      height: 125px;
+      margin-bottom: 1rem;
+    }
+    .style-guide .color-block.bg-color-white,
+    .style-guide .color-block.bg-color-white {
+      border: 1px solid #e7e5e5;
+     }
+    .style-guide .container-xl#container-spacing,
+    .style-guide .container-xl#intro {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .style-guide .container-xl#container-spacing .container-xl {
+      border: none;
+    }
+    .style-guide .background-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 33vh;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      text-align: center;
+    }
+    .style-guide .icons li {
+      margin: 0.5rem;
+    }
+    .style-guide .icons {
+      overflow: auto;
+      padding-bottom: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .style-guide p[class$="-font-stack"] {
+      word-break: break-all;
+    }
+    .style-guide .theme-block {
+      position: relative;
+      padding: 2rem 2rem 4rem;
+      margin-bottom: 2rem;
+    }
+    .style-guide .theme-block .badge {
+      position: absolute;
+      top: 2rem;
+      right: max(1rem, 3vw);
+    }
+    .style-guide pre {
+      white-space: break-spaces;
+    }
+    .style-guide-container {
+      background: var(--color-primary-200);
+    }
+    .alert-container {
+      width: 100%;
+    }
+    .container-padding {
+      padding: var(--container-padding);
+    }
+    .field-with-focus .field-input {
+      border-color: var(--input-border-active);
+      outline: 3px solid var(--input-focus-active);
+    }
+        /* ===========================================
+      BACKGROUND COLOR HELPER CLASSES
+      Auto-generated from Figma color variables
+      =========================================== */
+
+    .bg-color-black { background-color: var(--color-black); }
+    .bg-color-light-rose { background-color: var(--color-light-rose); }
+    .bg-color-muted-rose { background-color: var(--color-muted-rose); }
+    .bg-color-muted-rose-dark { background-color: var(--color-muted-rose-dark); }
+    .bg-color-obsidian-blue { background-color: var(--color-obsidian-blue); }
+    .bg-color-obsidian-blue-light { background-color: var(--color-obsidian-blue-light); }
+    .bg-color-obsidian-blue-lighter { background-color: var(--color-obsidian-blue-lighter); }
+    .bg-color-obsidian-blue-lightest { background-color: var(--color-obsidian-blue-lightest); }
+    .bg-color-obsidian-blue-ultra-light { background-color: var(--color-obsidian-blue-ultra-light); }
+    .bg-color-obsidian-warm { background-color: var(--color-obsidian-warm); }
+    .bg-color-slate-blue { background-color: var(--color-slate-blue); }
+    .bg-color-slate-blue-dark { background-color: var(--color-slate-blue-dark); }
+    .bg-color-error { background-color: var(--color-error); }
+    .bg-color-error-100 { background-color: var(--color-error-100); }
+    .bg-color-error-200 { background-color: var(--color-error-200); }
+    .bg-color-error-300 { background-color: var(--color-error-300); }
+    .bg-color-error-400 { background-color: var(--color-error-400); }
+    .bg-color-neutral-100 { background-color: var(--color-neutral-100); }
+    .bg-color-neutral-200 { background-color: var(--color-neutral-200); }
+    .bg-color-neutral-300 { background-color: var(--color-neutral-300); }
+    .bg-color-neutral-400 { background-color: var(--color-neutral-400); }
+    .bg-color-neutral-500 { background-color: var(--color-neutral-500); }
+    .bg-color-neutral-600 { background-color: var(--color-neutral-600); }
+    .bg-color-neutral-700 { background-color: var(--color-neutral-700); }
+    .bg-color-neutral-800 { background-color: var(--color-neutral-800); }
+    .bg-color-neutral-900 { background-color: var(--color-neutral-900); }
+    .bg-color-primary { background-color: var(--color-primary); }
+    .bg-color-primary-100 { background-color: var(--color-primary-100); }
+    .bg-color-primary-200 { background-color: var(--color-primary-200); }
+    .bg-color-primary-300 { background-color: var(--color-primary-300); }
+    .bg-color-primary-400 { background-color: var(--color-primary-400); }
+    .bg-color-primary-500 { background-color: var(--color-primary-500); }
+    .bg-color-secondary-100 { background-color: var(--color-secondary-100); }
+    .bg-color-secondary-200 { background-color: var(--color-secondary-200); }
+    .bg-color-secondary-300 { background-color: var(--color-secondary-300); }
+    .bg-color-secondary-400 { background-color: var(--color-secondary-400); }
+    .bg-color-secondary-500 { background-color: var(--color-secondary-500); }
+    .bg-color-secondary-600 { background-color: var(--color-secondary-600); }
+    .bg-color-success { background-color: var(--color-success); }
+    .bg-color-success-100 { background-color: var(--color-success-100); }
+    .bg-color-success-200 { background-color: var(--color-success-200); }
+    .bg-color-success-300 { background-color: var(--color-success-300); }
+    .bg-color-success-400 { background-color: var(--color-success-400); }
+    .bg-color-white { background-color: var(--color-white); }
+  </style>
+  <main class="style-guide">
+    <div class="container">
+     <section id="colors" class="container-xl">
+        <h2>Color</h2>
+        <h4>Neutral / Gray Scale</h4>
+        <div class="grid-auto grid-rows">
+          <div class="grid-item">
+            <div class="color-block bg-color-black js-color-selector"></div>
+            <p class="heading-6">Black</p>
+            <pre>var(--color-black)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-900 js-color-selector"></div>
+            <p class="heading-6">Neutral 900</p>
+            <pre>var(--color-neutral-900)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-800 js-color-selector"></div>
+            <p class="heading-6">Neutral 800</p>
+            <pre>var(--color-neutral-800)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-700 js-color-selector"></div>
+            <p class="heading-6">Neutral 700</p>
+            <pre>var(--color-neutral-700)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-600 js-color-selector"></div>
+            <p class="heading-6">Neutral 600</p>
+            <pre>var(--color-neutral-600)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-500 js-color-selector"></div>
+            <p class="heading-6">Neutral 500</p>
+            <pre>var(--color-neutral-500)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-400 js-color-selector"></div>
+            <p class="heading-6">Neutral 400</p>
+            <pre>var(--color-neutral-400)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-300 js-color-selector"></div>
+            <p class="heading-6">Neutral 300</p>
+            <pre>var(--color-neutral-300)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-200 js-color-selector"></div>
+            <p class="heading-6">Neutral 200</p>
+            <pre>var(--color-neutral-200)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-neutral-100 js-color-selector"></div>
+            <p class="heading-6">Neutral 100</p>
+            <pre>var(--color-neutral-100)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-white js-color-selector"></div>
+            <p class="heading-6">White</p>
+            <pre>var(--color-white)</pre>
+            <pre data-color-value></pre>
+          </div>
+        </div>
+        <h4>Primary Colors</h4>
+        <div class="grid-auto grid-rows">
+          <div class="grid-item">
+            <div class="color-block bg-color-primary-100 js-color-selector"></div>
+            <p class="heading-6">Color Primary 100</p>
+            <pre>var(--color-primary-100)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-primary-200 js-color-selector"></div>
+            <p class="heading-6">Color Primary 200</p>
+            <pre>var(--color-primary-200)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-primary-300 js-color-selector"></div>
+            <p class="heading-6">Color Primary 300</p>
+            <pre>var(--color-primary-300)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-primary-400 js-color-selector"></div>
+            <p class="heading-6">Color Primary 400</p>
+            <pre>var(--color-primary-400)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-primary-500 js-color-selector"></div>
+            <p class="heading-6">Color Primary 500</p>
+            <pre>var(--color-primary)</pre>
+            <pre data-color-value></pre>
+          </div>
+        </div>
+        <h4>Secondary Colors</h4>
+        <div class="grid-auto grid-rows">
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-100 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 100</p>
+            <pre>var(--color-secondary-100)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-200 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 200</p>
+            <pre>var(--color-secondary-200)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-300 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 300</p>
+            <pre>var(--color-secondary-300)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-400 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 400</p>
+            <pre>var(--color-secondary-400)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-500 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 500</p>
+            <pre>var(--color-secondary-500)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-secondary-600 js-color-selector"></div>
+            <p class="heading-6">Color Secondary 600</p>
+            <pre>var(--color-secondary-600)</pre>
+            <pre data-color-value></pre>
+          </div>
+        </div>
+        <h4>Support + Utility Colors</h4>
+        <div class="grid-auto grid-small">
+          <div class="grid-item">
+            <div class="color-block bg-color-success-400 js-color-selector"></div>
+            <p class="heading-6">Success 400</p>
+            <pre>var(--color-success-400)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-success-300 js-color-selector"></div>
+            <p class="heading-6">Success 300</p>
+            <pre>var(--color-success-300)</pre>
+            <pre>var(--color-success)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-success-200 js-color-selector"></div>
+            <p class="heading-6">Success 200</p>
+            <pre>var(--color-success-200)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-success-100 js-color-selector"></div>
+            <p class="heading-6">Success 100</p>
+            <pre>var(--color-success-100)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-error-400 js-color-selector"></div>
+            <p class="heading-6">Error 400</p>
+            <pre>var(--color-error-400)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-error-300 js-color-selector"></div>
+            <p class="heading-6">Error 300</p>
+            <pre>var(--color-error-300)</pre>
+            <pre>var(--color-error)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-error-200 js-color-selector"></div>
+            <p class="heading-6">Error 200</p>
+            <pre>var(--color-error-200)</pre>
+            <pre data-color-value></pre>
+          </div>
+          <div class="grid-item">
+            <div class="color-block bg-color-error-100 js-color-selector"></div>
+            <p class="heading-6">Error 100</p>
+            <pre>var(--color-error-100)</pre>
+            <pre data-color-value></pre>
+          </div>
+        </div>
+      </section> 
+      <section id="theming-" class="container-xl">
+        {% comment %} <h2>Color Schemes</h2> {% endcomment %}
+        {%- assign _themes = '1,2,3,4' -%}
+        {%- assign themes = _themes | split: ',' -%}
+        {%- for theme in themes -%}
+        <div class="color-scheme-{{ theme }} theme-block">
+          <h3>.color-scheme-{{ theme }}</h3>
+          <div
+          class="product-badges product-badges--top-right"
+          style="
+            --padding-block-start: 1rem;
+            --padding-inline-start: 1rem;
+            --badge-border-radius: {{ settings.badge_corner_radius }}px;
+            --badge-font-family: var(--font-{{ settings.badge_font_family }}--family); --badge-font-weight: var(--font-{{ settings.badge_font_family }}--weight); --badge-text-transform: {{ settings.badge_text_transform }};
+          "
+          >
+          <div class="product-badges__badge product-badges__badge--rectangle color-{{ settings.badge_sold_out_color_scheme }}">Badge</div>
+        </div>
+          <p>Text Primary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p class="text-secondary">Text Secondary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <a class="link" href="#">Link</a><br/><br/>
+          <hr>
+          <div class="grid-auto grid-rows">
+            <div class="grid-item">
+              <button class="button button-primary">Primary</button>
+            </div>
+            <div class="grid-item">
+              <button class="button button-secondary">Secondary</button>
+            </div>
+            <div class="grid-item">
+              <button class="button button-tertiary">Tertiary</button>
+            </div>
+          </div>
+          <div class="grid-auto grid-rows">
+            <div class="grid-item">
+              <button class="button button-primary" disabled>Primary Disabled</button>
+            </div>
+            <div class="grid-item">
+              <button class="button button-secondary" disabled>Secondary Disabled</button>
+            </div>
+            <div class="grid-item">
+              <button class="button button-tertiary" disabled>Tertiary Disabled</button>
+            </div>
+          </div>
+        </div>
+        {%- endfor -%}
+      </section>
+
+      <section id="iconography-original" class="container-xl">
+        <h4>Assets Folder Icons</h4>
+        {%- assign asset_icons = 'account,add-to-cart,arrow,available,caret,cart,checkmark-burst,checkmark,chevron-left,chevron-right,close,delete,discount,double-chevron,error,external,filter,filters-close,grid-default,grid-dense,info,inventory,menu,minus,one-col-mobile,orders,pause,play,plus,reset,search,shopify,unavailable' -%}
+        {%- assign icons = asset_icons | split: ',' -%}
+        <ul class="icons list-unstyled">
+          {%- for icon in icons -%}
+            <li>
+              <span class="svg-wrapper svg-wrapper--large">
+                {{- 'icon-' | append: icon | append: '.svg' | inline_asset_content -}}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+      <section id="iconography-converted" class="container-xl">
+        <h4>Snippet to Assets Folder Icons</h4>
+        {%- assign asset_icons = '3d-model,alert,arrow-down,arrow-left,arrow-right,arrow-up,calendar,camera,caret-down,caret-left,caret-right,caret-up,check,check-circle,chevron-down,chevron-left-old,chevron-right-old,chevron-up,clipboard,close-old,delivery,delete-old,download,edit,email,emoticon,facebook,filter-old,filter-sort,free-returns,free-shipping,google,hamburger,heart,heart-active,hyperlink,info-old,instagram,lightning,linked-in,lock,logo,map,minus-old,pause-old,phone,photo,pinterest,placeholder,play-old,plus-old,search-old,settings,share,shipping,shopping-cart,slider,star,star-empty,star-half,tag,tiktok,unlock,user,vimeo,warning,website,x,youtube,zoom-in,zoom-out' -%}
+        {%- assign icons = asset_icons | split: ',' -%}
+        <ul class="icons list-unstyled">
+          {%- for icon in icons -%}
+            <li>
+              <span class="svg-wrapper svg-wrapper--large">
+                {{- 'icon-' | append: icon | append: '.svg' | inline_asset_content -}}
+              </span>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
+    </div>
+  </main>
+</div>
+
+{% schema %}
+{
+  "name": "Style Guide",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style Guide Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_design_tokens",
+      "label": "Show Design Tokens",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Style Guide",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

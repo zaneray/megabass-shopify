@@ -1,0 +1,76 @@
+{%- doc -%}
+  Intended for use in a block similar to the button block.
+
+  @param {string} link - link to render
+  @param {object} [block] - The block
+
+  @example
+  {% render 'button', link: '/collections/all' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign icon_size = block_settings.icon_size | default: 'xsmall'
+  assign has_icon = false
+  if block_settings.icon != 'none'
+    assign has_icon = true
+  endif
+-%}
+
+{% capture icon %}
+  {% if has_icon %}
+    <span class="svg-wrapper svg-wrapper--{{ icon_size }}">
+      {{- 'icon-' | append: block_settings.icon | append: '.svg' | inline_asset_content -}}
+    </span>
+  {% endif %}
+{% endcapture %}
+
+<a
+  {% if link == blank %}
+    role="link"
+    aria-disabled="true"
+  {% else %}
+    href="{{ link }}"
+  {% endif %}
+  class="
+    size-style
+    {{ block_settings.style_class | default: 'button-primary' }}
+    {{ block_settings.style_class }}--{{ block.id }}
+    {{ block_settings.button_size }}
+    {% unless block_settings.style_class == 'link' %}button{% endunless %}
+    {% if has_icon %}button-with-icon{% endif %}
+  "
+  style="{% render 'size-style', settings: block_settings %}"
+  {%- if block_settings.open_in_new_tab -%}
+    target="_blank"
+    rel="noopener noreferrer"
+  {%- endif -%}
+  {{ block.shopify_attributes }}
+>
+  {% if has_icon and block_settings.icon_position == 'left' %}
+    {{ icon }}
+  {% endif %}
+  <span class="button__label{% if block_settings.uppercase %} uppercase{% endif %}">{{ block_settings.label }}</span>
+  {% if has_icon and block_settings.icon_position == 'right' %}
+    {{ icon }}
+  {% endif %}
+</a>
+
+{% stylesheet %}
+  .link {
+    text-decoration: none;
+    text-decoration-color: currentcolor;
+
+    &:hover {
+      color: var(--color-primary-hover);
+      text-decoration-color: transparent;
+    }
+  }
+
+  .button-with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--padding-sm);
+  }
+{% endstylesheet %}
