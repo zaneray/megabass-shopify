@@ -7,7 +7,9 @@
     removed to avoid redundancy.
   {%- endcomment -%}
 
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+  /* MEG-103: Lora + Montserrat are loaded via a stylesheet <link> in snippets/fonts.liquid.
+     An @import here fails to load in the Shopify Theme Editor preview, which made Lora render
+     in a fallback font in the editor (it looked like the wrong/serif font was being used). */
 
   :root {
     /* New: Figma color system (from prim-color-* in figma-variables.css) */
