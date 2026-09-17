@@ -606,14 +606,16 @@
   .variant-option__custom-image {
     width: 120px;
     height: 56px;
-    object-fit: cover;
+    /* Product images are a mix of landscape and 1:1 — never crop, letterbox instead. */
+    object-fit: contain;
+    object-position: center;
+    background: #f2f3f3;
     flex-shrink: 0;
     border-radius: 0;
   }
 
   .variant-option__custom-image--placeholder {
     display: block;
-    background: #f2f3f3;
   }
 
   .variant-option__custom-text {
