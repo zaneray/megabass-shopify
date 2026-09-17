@@ -3,6 +3,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
 
+{% comment %}
+  MEG-103: Load the Figma design-system typefaces (Lora + Montserrat) via a stylesheet <link>
+  here, NOT via a CSS @import inside an inline Liquid style block. That @import (previously in
+  snippets/figma-horizon-mapped-variables.liquid) silently fails to load in the Shopify Theme
+  Editor preview, so Lora fell back to a substitute font and the storefront looked like it was
+  using the wrong font. A <link> loads reliably in both the editor and the live storefront --
+  the same method the DM Sans link above already uses successfully.
+{% endcomment %}
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 {%- unless settings.type_body_font.system?
   and settings.type_subheading_font.system?
   and settings.type_heading_font.system?
