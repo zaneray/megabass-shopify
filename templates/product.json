@@ -34,7 +34,6 @@
             "zoom": true,
             "video_loop": false,
             "hide_variants": true,
-            "show_first_media_only": true,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
