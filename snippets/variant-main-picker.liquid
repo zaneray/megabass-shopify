@@ -149,8 +149,8 @@
                       | image_url: width: 360
                       | image_tag:
                         loading: 'lazy',
-                        widths: '120, 240, 360',
-                        sizes: '120px',
+                        widths: '80, 160, 240',
+                        sizes: '80px',
                         class: 'variant-option__custom-image',
                         alt: selected_option_name
                     }}
@@ -249,8 +249,8 @@
                           | image_url: width: 360
                           | image_tag:
                             loading: 'lazy',
-                            widths: '120, 240, 360',
-                            sizes: '120px',
+                            widths: '80, 160, 240',
+                            sizes: '80px',
                             class: 'variant-option__custom-image',
                             alt: ''
                         }}
@@ -615,18 +615,21 @@
   }
 
   .variant-option__custom-image {
-    width: 120px;
-    height: 56px;
-    /* Product images are a mix of landscape and 1:1 — never crop, letterbox instead. */
+    /* 4:3 slot. Product images are a mix of landscape and 1:1 — never crop,
+       letterbox instead, against white so the padding is invisible. */
+    width: 80px;
+    height: 60px;
     object-fit: contain;
     object-position: center;
-    background: #f2f3f3;
+    background: #fff;
     flex-shrink: 0;
     border-radius: 0;
   }
 
+  /* No image at all: keep a visible tile rather than a white gap. */
   .variant-option__custom-image--placeholder {
     display: block;
+    background: #f2f3f3;
   }
 
   .variant-option__custom-text {
@@ -680,7 +683,7 @@
     padding: 0;
     min-width: 0;
     width: 100%;
-    max-height: calc(4 * (56px + 16px + 1px)); /* ~4 rows: thumb + padding + border */
+    max-height: calc(4 * (60px + 16px + 1px)); /* ~4 rows: thumb + padding + border */
     overflow-y: auto;
     overscroll-behavior: contain;
 
