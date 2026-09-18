@@ -407,10 +407,10 @@
       "name": "t:names.collections_bento",
       "settings": {
         "collection_list": [
+          "hardbaits",
+          "rods",
           "trout",
           "saltwater",
-          "rods",
-          "hardbaits",
           "softbaits"
         ],
         "layout_type": "bento",
