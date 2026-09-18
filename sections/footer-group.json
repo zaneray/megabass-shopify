@@ -759,8 +759,9 @@
             "menu_GDNpfQ": {
               "type": "menu",
               "name": "t:names.menu",
+              "disabled": true,
               "settings": {
-                "menu": "footer-about",
+                "menu": "",
                 "heading": "About",
                 "menu_spacing": 16,
                 "show_as_accordion": true,
