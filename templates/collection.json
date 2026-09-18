@@ -97,6 +97,7 @@
         "text_76RWBm",
         "button_GhJBe3"
       ],
+      "disabled": true,
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
@@ -196,7 +197,6 @@
         "text_tqQTNE",
         "text_twGGkJ"
       ],
-      "disabled": true,
       "name": "Collection heading",
       "settings": {
         "content_direction": "column",
