@@ -587,8 +587,9 @@
   .quick-order-list__table-image {
     min-width: var(--image-size);
     height: 85px;
-    object-fit: cover;
-
+    /* Product images are a mix of landscape and 1:1 — never crop, letterbox instead. */
+    object-fit: contain;
+    object-position: center;
   }
 
   .quick-order-list .pagination {
