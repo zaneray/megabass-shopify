@@ -658,7 +658,7 @@
               "type": "button",
               "settings": {
                 "label": "Shop evoluzion",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/rods-evoluzion",
                 "open_in_new_tab": false,
                 "uppercase": true,
                 "style_class": "link",
