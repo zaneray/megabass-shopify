@@ -785,7 +785,7 @@
               "type": "button",
               "settings": {
                 "label": "Shop colors",
-                "link": "shopify://collections/all",
+                "link": "shopify://products/dark-sleeper-3in",
                 "open_in_new_tab": false,
                 "uppercase": true,
                 "style_class": "link",
