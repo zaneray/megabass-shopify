@@ -343,10 +343,10 @@
           "settings": {
             "placement": "on_image",
             "horizontal_alignment": "center",
-            "vertical_alignment": "center",
+            "vertical_alignment": "flex-end",
             "collection_card_gap": 0,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-2",
+            "color_scheme": "scheme-1",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
