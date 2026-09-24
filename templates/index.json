@@ -341,7 +341,7 @@
           "name": "t:names.collection_card",
           "static": true,
           "settings": {
-            "placement": "on_image",
+            "placement": "below_image",
             "horizontal_alignment": "center",
             "vertical_alignment": "flex-end",
             "collection_card_gap": 0,
