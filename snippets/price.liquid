@@ -6,6 +6,7 @@
   @param {object} [variant] - Optional variant override for price display
   @param {boolean} [show_unit_price] - Whether to show the unit price
   @param {boolean} [show_sale_price_first] - Whether to show the sale price first
+  @param {boolean} [show_msrp] - Whether to show the selected variant's custom.msrp metafield (when set) above the price, as an "MSRP / Your Price" pair. Only applies on the product page.
 {%- enddoc -%}
 
 {%- liquid
@@ -63,6 +64,26 @@
     assign use_currency = true
   endif
 
+  # MSRP (variant metafield custom.msrp): on the product page, show it above the price and label
+  # the regular price "Your Price:". Handles money, number and text metafield types.
+  assign msrp_display = ''
+
+  if show_msrp and template.name == 'product'
+    assign msrp_metafield = selected_variant.metafields.custom.msrp
+    assign msrp_value = msrp_metafield.value
+
+    if msrp_value != blank
+      if msrp_metafield.type == 'money'
+        assign msrp_display = msrp_value
+      elsif msrp_metafield.type == 'number_decimal' or msrp_metafield.type == 'number_integer'
+        assign msrp_cents = msrp_value | times: 100
+        assign msrp_display = msrp_cents
+      else
+        assign msrp_display = msrp_value | strip
+      endif
+    endif
+  endif
+
   # Format all prices
   if use_currency
     assign price = price | money_with_currency
@@ -75,9 +96,27 @@
     assign price_min = price_min | money
     assign price_max = price_max | money
   endif
+
+  if msrp_display != blank
+    if msrp_metafield.type == 'money' or msrp_metafield.type == 'number_decimal' or msrp_metafield.type == 'number_integer'
+      if use_currency
+        assign msrp_display = msrp_display | money_with_currency
+      else
+        assign msrp_display = msrp_display | money
+      endif
+    endif
+  endif
 -%}
 
 <div ref="priceContainer">
+  {%- if msrp_display != blank -%}
+    <div class="price-msrp">
+      <span class="price-msrp__label">{{ 'content.msrp' | t }}</span>
+      <span class="price-msrp__value">{{ msrp_display }}</span>
+    </div>
+    <div class="price-your-price">
+      <span class="price-your-price__label">{{ 'content.your_price' | t }}</span>
+  {%- endif -%}
   {% if has_volume_pricing %}
     {% comment %} Volume pricing display {% endcomment %}
     {% if show_compare_price %}
@@ -115,6 +154,9 @@
       </span>
     {% endif %}
   {% endif %}
+  {%- if msrp_display != blank -%}
+    </div>
+  {%- endif -%}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid
       if use_currency
@@ -129,3 +171,14 @@
 {%- if has_volume_pricing -%}
   <small ref="volumePricingNote" class="volume-pricing-note">{{ 'content.volume_pricing_available' | t }}</small>
 {%- endif -%}
+
+{% stylesheet %}
+  .price-msrp {
+    color: var(--color-neutral-500);
+  }
+
+  .price-msrp__label,
+  .price-your-price__label {
+    margin-inline-end: var(--gap-2xs, 0.25rem);
+  }
+{% endstylesheet %}

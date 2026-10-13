@@ -25,49 +25,16 @@
 {%- liquid
   assign selected_product = closest.product
 
-  # MEG-102: `selected_variant` is set only when the shopper explicitly chose a colour.
-  # Product cards link to the bare product URL, so arriving from a collection leaves it
-  # nil and the gallery falls back to the product's own studio/main shot.
-  assign selected_variant_media = selected_product.selected_variant.featured_media
+  # Which media to show:
+  # - On the product page (PDP): only the selected variant's image (the selected, or else the
+  #   first available, variant). If that variant has no image, fall back to all media.
+  # - On any other page: the product gallery in its natural order, so its first image leads.
+  assign selected_variant_media = null
+  if template.name == 'product'
+    assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
+  endif
 
   assign first_3d_model = selected_product.media | where: 'media_type', 'model' | first
-
-  if block_settings.hide_variants
-    assign variant_images = selected_product.images | where: 'attached_to_variant?', true | map: 'src'
-  endif
-
-  # The chosen variant's media leads, followed by media not tied to any variant. With
-  # hide_variants on, other colours never appear -- including before a colour is chosen,
-  # when only the general shots remain.
-  assign sorted_media = '' | split: ','
-  if selected_variant_media or block_settings.hide_variants
-    if selected_variant_media
-      assign sorted_media = sorted_media | concat: selected_product.media | where: 'id', selected_variant_media.id
-    endif
-
-    for media in selected_product.media
-      if selected_variant_media and media.id == selected_variant_media.id
-        continue
-      endif
-
-      if block_settings.hide_variants and variant_images contains media.src
-        continue
-      endif
-
-      assign found_media = selected_product.media | where: 'id', media.id
-      assign sorted_media = sorted_media | concat: found_media
-    endfor
-  else
-    assign sorted_media = selected_product.media
-  endif
-
-  # Some products have no media beyond their variant shots, which would leave the gallery
-  # empty before a colour is chosen. Fall back to the product's first media item.
-  if sorted_media.size == 0
-    assign sorted_media = selected_product.media | slice: 0, 1
-  endif
-
-  assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   if block_settings.slideshow_controls_style == 'thumbnails'
     assign controls_on_media = false
@@ -105,7 +72,12 @@
 
   assign render_slideshow_arrows = false
 
-  if sorted_media.size <= 1
+  assign gallery_media_count = selected_product.media.size
+  if block_settings.show_first_media_only
+    assign gallery_media_count = 1
+  endif
+
+  if gallery_media_count <= 1
     assign slideshow_class = 'product-media-gallery__slideshow--single-media slideshow--single-media'
   else
     assign slideshow_class = ''
@@ -136,6 +108,17 @@
       assign icons_position = 'left'
     endif
   endif
+
+  if selected_variant_media
+    assign sorted_media = selected_product.media | where: 'id', selected_variant_media.id
+  else
+    assign sorted_media = selected_product.media
+  endif
+
+  if block_settings.show_first_media_only
+    assign sorted_media = sorted_media | slice: 0, 1
+  endif
+  assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   # Determine if we're in single column mode (carousel or grid with one column)
   assign is_single_column = false

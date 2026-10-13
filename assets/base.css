@@ -4812,6 +4812,7 @@ product-recommendations:has([data-has-recommendations='false']) {
   display: flex;
   gap: var(--gap-2xs);
   align-items: center;
+  font-family: var(--font-family-heading);
   justify-content: center;
   animation-duration: var(--animation-speed);
   animation-timing-function: var(--animation-easing);

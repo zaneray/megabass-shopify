@@ -47,6 +47,7 @@
 >
   {% render 'price',
     show_unit_price: true,
+    show_msrp: block_settings.show_msrp,
     product_resource: product_resource,
     show_sale_price_first: block_settings.show_sale_price_first
   %}
@@ -142,6 +143,12 @@
       "type": "checkbox",
       "id": "show_tax_info",
       "label": "t:settings.show_tax_info",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_msrp",
+      "label": "t:settings.show_msrp",
       "default": false
     },
     {

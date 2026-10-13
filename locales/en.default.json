@@ -260,6 +260,8 @@
     "remove_one_item_confirmation": "Remove 1 item from your cart?",
     "reviews": "reviews",
     "read_more": "Read more...",
+    "msrp": "MSRP:",
+    "your_price": "Your Price:",
     "search_input_label": "Search",
     "search_input_placeholder": "Search",
     "search": "Search",
