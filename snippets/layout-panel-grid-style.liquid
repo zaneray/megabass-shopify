@@ -153,5 +153,22 @@
 {% endif %}
 {% comment %} Use grid-prefixed gap vars so nested .layout-panel-flex (group) doesn't inherit and use wrong gap {% endcomment %}
 {% render 'gap-style', value: settings.gap, name: 'grid-gap' %}
-{% render 'gap-style', value: settings.gap_tablet | default: settings.gap, name: 'grid-gap-tablet' %}
-{% render 'gap-style', value: settings.gap_mobile | default: settings.gap, name: 'grid-gap-mobile' %}
+{% render 'gap-style', value: settings.gap_tablet, default: settings.gap, name: 'grid-gap-tablet' %}
+{% render 'gap-style', value: settings.gap_mobile, default: settings.gap, name: 'grid-gap-mobile' %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'gap-style', value: settings.gap_tablet | default: settings.gap,
+    name: 'grid-gap-tablet' %}"
+  to: "{% render 'gap-style', value: settings.gap_tablet, default: settings.gap, name:
+    'grid-gap-tablet' %}"
+  position: 5768..5868
+- from: "{% render 'gap-style', value: settings.gap_mobile | default: settings.gap,
+    name: 'grid-gap-mobile' %}"
+  to: "{% render 'gap-style', value: settings.gap_mobile, default: settings.gap, name:
+    'grid-gap-mobile' %}"
+  position: 5869..5969
+{% endcomment %}
